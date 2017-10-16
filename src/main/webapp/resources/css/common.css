@@ -1,0 +1,51 @@
+
+
+
+body {
+    background-color: #fff7af;
+    margin: 0 20px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.header {
+    font-family: "Arial Black", "Arial Bold", Gadget, sans-serif;
+    font-size: 48px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    line-height: 60px;
+    /*background-color: #7494ed;*/
+    margin-bottom: 20px;
+}
+
+.templateDiv {
+    margin-top: 10px;
+}
+.btnSubmit {
+    margin-top: 10px;
+}
+
+
+
+.center_div{
+    margin: 0 auto;
+    width:80% /* value of your choice which suits your alignment */
+}
+
+.bkred {
+    background-color: red;
+}
+.bkblue {
+    background-color: blue;
+}
+.bkyellow {
+    background-color: yellow;
+}

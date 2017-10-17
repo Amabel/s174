@@ -25,7 +25,6 @@ public class ParamsAnalyzer {
 	private List<String> replaceKeyWords(String[] srcParams) {
 		
 		List<String> res = new ArrayList<String>();
-		
 		for (String str : srcParams) {
 			Iterator iterator = patternMap.entrySet().iterator();
 			while(iterator.hasNext()) {
@@ -33,7 +32,6 @@ public class ParamsAnalyzer {
 				String key = entry.getKey();
 				String value = entry.getValue();
 				str = str.replace(key, value);
-				System.out.println(str);
 				res.add(str);
 			}
 		}

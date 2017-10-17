@@ -9,6 +9,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
+
 public class TemplateGraphGenerator {
 	
 	File srcFile;
@@ -25,7 +30,7 @@ public class TemplateGraphGenerator {
 		
 		Properties graphPathProperties = new Properties();
 		String propFileName = "graph-template-path.properties";
-		String path = ParamsAnalyzer.class.getClassLoader().getResource(propFileName).getPath();
+		String path = TemplateGraphGenerator.class.getClassLoader().getResource(propFileName).getPath();
 		
 		try {
 			FileInputStream in = new FileInputStream(path);
@@ -40,14 +45,13 @@ public class TemplateGraphGenerator {
 		}
 		
 		// search graph file using pattern name
-		String graphPath = graphPathProperties.getProperty(pattern);
 		
-		srcFile = new File(graphPath);
-		
-		System.out.println(srcFile.getPath());
-		
+		String graphFileName = graphPathProperties.getProperty(pattern);
+		String graphFilePath = TemplateGraphGenerator.class.getClassLoader().getResource(graphFileName).getPath();		
+		srcFile = new File(graphFilePath);
+
 		// file
-		
+		writeXmlFile();
 		
 		return null;
 	}
@@ -64,22 +68,22 @@ public class TemplateGraphGenerator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-//		switch (pattern) {
-//		case "Absence":
-//		case "Existence":
-//		case "Universality":
-//		case "Bounded-Existence":
-//			replaceP();
-//			break;
-//		case "Response":
-//		case "Precedence":
-//			replaceP();
-//			replaceS();
-//		default:
-//			System.out.println("no matching pattern name");
-//			break;
-//		}
+		System.out.println(pattern);
+		switch (pattern) {
+		case "Absence":
+		case "Existence":
+		case "Universality":
+		case "Bounded-Existence":
+			replaceP();
+			break;
+		case "Response":
+		case "Precedence":
+			replaceP();
+			replaceS();
+		default:
+			System.out.println("no matching pattern name");
+			break;
+		}
 		
 		// write into new file (dest file)
 		
@@ -87,13 +91,38 @@ public class TemplateGraphGenerator {
 	}
 	
 	private void replaceP() {
-		String str = this.params.get(0);
+		String propertyP = this.params.get(0);
 		String xPath = "//responsibilities/name";
+		String srcString = "";
+		// find P
+		SAXReader reader = new SAXReader();
+		try {
+			Document document = reader.read(srcFile);
+			srcString = ((Element)(document.selectNodes(xPath).get(0))).getText();
+			
+			System.out.println(srcString);
+			
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// replace
+		String replacedStr = "";
+		if (srcString.equals("P()*")) {
+			replacedStr = "P(" + propertyP +")*";
+		} else if (srcString.equals("P()")) {
+			replacedStr = "P(" + propertyP +")";
+		} else {
+			replacedStr = srcString.replace("P", propertyP);
+		}
 		
 	}
 	
 	private void replaceS() {
-		String str = this.params.get(1);
+		String propertyQ = this.params.get(1);
+		
+		
 	}
 	
 }

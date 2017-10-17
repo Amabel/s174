@@ -46,7 +46,7 @@ public class ParamsAnalyzer {
 	private void createMap() {
 		// construct map from .properties
 		Properties patternMappingProperties = new Properties();
-		String propFileName = "pattern_mapping.properties";
+		String propFileName = "pattern-mapping.properties";
 		
 		String path = ParamsAnalyzer.class.getClassLoader().getResource(propFileName).getPath();
 		

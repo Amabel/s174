@@ -27,7 +27,7 @@
             </connections>
             <nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="StartPoint">
                 <id>12</id>
-                <name>a</name>
+                <name></name>
                 <metadata>
                     <name>jUCMNav StartPoint local</name>
                     <value>false</value>

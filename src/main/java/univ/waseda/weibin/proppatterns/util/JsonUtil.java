@@ -1,4 +1,4 @@
-package util;
+package univ.waseda.weibin.proppatterns.util;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;

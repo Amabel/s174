@@ -1,4 +1,4 @@
-package service;
+package univ.waseda.weibin.proppatterns.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;

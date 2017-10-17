@@ -3,7 +3,6 @@
 
     <welcome-file-list>
         <welcome-file>/WEB-INF/index.html</welcome-file>
-        <welcome-file>/MyServlet</welcome-file>
     </welcome-file-list>
 
     <servlet>
@@ -17,7 +16,7 @@
     
     <servlet>
 	    <servlet-name>TemplateServlet</servlet-name>
-	    <servlet-class>service.TemplateServlet</servlet-class>
+	    <servlet-class>univ.waseda.weibin.proppatterns.controller.TemplateServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>TemplateServlet</servlet-name>

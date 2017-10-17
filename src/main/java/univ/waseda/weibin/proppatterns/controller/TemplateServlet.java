@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import univ.waseda.weibin.proppatterns.service.JsonAnalyzer;
+import univ.waseda.weibin.proppatterns.service.TemplateJsonAnalyzer;
+
 public class TemplateServlet extends HttpServlet {
 
 	/**
@@ -25,9 +28,14 @@ public class TemplateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String templateJson = request.getParameter("templateJson");
-        
-		System.out.println(templateJson);
 		
+		// process templateJson
+		
+		JsonAnalyzer templateJsonAnalyzer = new TemplateJsonAnalyzer();
+		
+		templateJsonAnalyzer.analyze(templateJson);
+		
+		// return results
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();

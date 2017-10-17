@@ -111,7 +111,7 @@ $.submitTemplate = function(patternName, numProperty) {
     // send json
     $.ajax({
         type: 'post',
-        url: '/s173/template',
+        url: '/s174/template',
         dataType: 'JSON',
         data: {
             templateJson: JSON.stringify(templateJson)

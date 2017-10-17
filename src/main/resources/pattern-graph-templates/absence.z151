@@ -104,7 +104,7 @@
         </ucmMaps>
         <responsibilities>
             <id>14</id>
-            <name>not(a&gt;3)</name>
+            <name>not(P)</name>
             <metadata>
                 <name>jUCMNav Responsibility context</name>
                 <value>false</value>

@@ -144,7 +144,7 @@
         </ucmMaps>
         <responsibilities>
             <id>16</id>
-            <name>P(c)*</name>
+            <name>P()*</name>
             <metadata>
                 <name>jUCMNav Responsibility context</name>
                 <value>false</value>
@@ -157,7 +157,7 @@
         </responsibilities>
         <responsibilities>
             <id>17</id>
-            <name>Q(a==b)</name>
+            <name>Q()</name>
             <metadata>
                 <name>jUCMNav Responsibility context</name>
                 <value>false</value>

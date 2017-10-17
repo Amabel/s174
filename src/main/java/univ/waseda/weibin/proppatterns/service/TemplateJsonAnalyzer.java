@@ -1,5 +1,7 @@
 package univ.waseda.weibin.proppatterns.service;
 
+import java.util.List;
+
 import com.google.gson.Gson;
 
 import univ.waseda.weibin.proppatterns.model.PatternTemplate;
@@ -9,6 +11,7 @@ public class TemplateJsonAnalyzer implements JsonAnalyzer {
 	private PatternTemplate patternTemplate;
 	private Gson gson;
 	private ParamsAnalyzer paramsAnalyzer;
+	private TemplateGraphGenerator templateGraphGenerator;
 	
 	public void analyze(String templateJson) {
 		
@@ -21,7 +24,13 @@ public class TemplateJsonAnalyzer implements JsonAnalyzer {
 		// pattern, params
 		// analyze params
 		paramsAnalyzer = new ParamsAnalyzer();
-		paramsAnalyzer.analyze(patternTemplate.getParameters());
+		List<String> replacedParams = paramsAnalyzer.analyze(patternTemplate.getParameters());
+		
+		// pattern, replacedParams
+		// generate pattern graph
+		
+		templateGraphGenerator = new TemplateGraphGenerator(patternTemplate.getPattern(), replacedParams);
+		templateGraphGenerator.generateGraphFile();
 		
 	}
 	

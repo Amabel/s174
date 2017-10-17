@@ -18,10 +18,8 @@ public class ParamsAnalyzer {
 		createMap();
 	}
 
-	public String analyze(String[] params) {
-		replaceKeyWords(params);
-		
-		return "";
+	public List<String> analyze(String[] params) {
+		return replaceKeyWords(params);
 	}
 	
 	private List<String> replaceKeyWords(String[] srcParams) {

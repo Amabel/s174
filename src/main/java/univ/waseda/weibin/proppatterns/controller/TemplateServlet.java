@@ -17,6 +17,7 @@ public class TemplateServlet extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = -1198035746274678001L;
+	private String webInfPath;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,11 +28,13 @@ public class TemplateServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		webInfPath = this.getServletConfig().getServletContext().getRealPath("WEB-INF");
+		
 		String templateJson = request.getParameter("templateJson");
 		
 		// process templateJson
 		
-		JsonAnalyzer templateJsonAnalyzer = new TemplateJsonAnalyzer();
+		JsonAnalyzer templateJsonAnalyzer = new TemplateJsonAnalyzer(webInfPath);
 		
 		templateJsonAnalyzer.analyze(templateJson);
 		

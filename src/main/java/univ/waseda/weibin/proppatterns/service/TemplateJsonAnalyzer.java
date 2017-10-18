@@ -12,6 +12,11 @@ public class TemplateJsonAnalyzer implements JsonAnalyzer {
 	private Gson gson;
 	private ParamsAnalyzer paramsAnalyzer;
 	private TemplateGraphGenerator templateGraphGenerator;
+	private String webInfPath;
+
+	public TemplateJsonAnalyzer(String webInfPath) {
+		this.webInfPath = webInfPath;
+	}
 	
 	public void analyze(String templateJson) {
 		
@@ -30,7 +35,10 @@ public class TemplateJsonAnalyzer implements JsonAnalyzer {
 		// generate pattern graph
 		
 		templateGraphGenerator = new TemplateGraphGenerator(patternTemplate.getPattern(), replacedParams);
-		templateGraphGenerator.generateGraphFile();
+		
+		String destPath = webInfPath + "/temps/generated-graphs/";
+		
+		templateGraphGenerator.generateGraphFile(destPath);
 		
 	}
 	

@@ -117,10 +117,10 @@ $.submitTemplate = function(patternName, numProperty) {
             templateJson: JSON.stringify(templateJson)
         },
         success: function(data) {
-            alert(data);
+            alert("success");
         },
         error: function(data) {
-            alert('fail');
+            alert('failed');
         }
     });
 

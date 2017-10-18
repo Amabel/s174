@@ -22,5 +22,14 @@
         <servlet-name>TemplateServlet</servlet-name>
         <url-pattern>/template</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+	    <servlet-name>DownloadTemplateServlet</servlet-name>
+	    <servlet-class>univ.waseda.weibin.proppatterns.controller.DownloadTemplateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DownloadTemplateServlet</servlet-name>
+        <url-pattern>/download-graph-template</url-pattern>
+    </servlet-mapping>
 
 </web-app>

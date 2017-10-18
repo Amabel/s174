@@ -1,3 +1,5 @@
+var graphTemppateFilePath;
+
 $(document).ready(function() {
     $.generateFormPatternSelection();
 });
@@ -118,6 +120,8 @@ $.submitTemplate = function(patternName, numProperty) {
         },
         success: function(data) {
             // alert("success");
+            console.log(data);
+            graphTemppateFilePath = data;
             $.showDownloadButton();
         },
         error: function(data) {
@@ -138,4 +142,12 @@ $.showDownloadButton = function() {
 
     // append to submit button
     $("#btnSubmitTemplate").parent().after(buttonTag);
+    $.addDownloadTemplateButtonListener();
+}
+
+
+$.addDownloadTemplateButtonListener = function() {
+    $("#btnDownloadTemplate").click(function() {
+        $.fileDownload(graphTemppateFilePath);
+    });
 }

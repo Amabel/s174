@@ -77,11 +77,15 @@ public class TemplateGraphGenerator {
 			destDir.mkdirs();
 		}
 		
+		System.out.println(destDir);
+		
 		// write document to dest file
 		SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd-HHmmss");
 		String destFileName = "prop-pattern-" + df.format(new Date()) + ".z151";
         String destFilePath = destDirPath + destFileName;
         File destFile = new File(destFilePath);
+        
+        System.out.println(destFile);
 		
 		OutputFormat format = OutputFormat.createPrettyPrint();  
         format.setEncoding("UTF-8");

@@ -12,7 +12,7 @@ $.submitRequirement = function() {
         event.preventDefault();
         $.ajax({
             type: 'post',
-            url: '/s173/requirement',
+            url: '/s174/requirement',
             dataType: 'JSON',
             data: {
                 requirementJSON: JSON.stringify(requirementJSON)

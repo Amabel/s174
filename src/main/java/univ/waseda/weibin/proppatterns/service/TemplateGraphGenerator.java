@@ -29,12 +29,10 @@ public class TemplateGraphGenerator {
 	File destFile;
 	String pattern;
 	List<String> params;
-	String classPath;
 	
 	public TemplateGraphGenerator(String pattern, List<String> params) {
 		this.pattern = pattern;
 		this.params = params;
-		this.classPath = TemplateGraphGenerator.class.getResource("/").toString();
 	}
 	
 	public File generateGraphFile(String destPath) {

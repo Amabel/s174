@@ -3,23 +3,25 @@ package univ.waseda.weibin.proppatterns.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.google.gson.Gson;
 import univ.waseda.weibin.proppatterns.service.TemplateJsonAnalyzer;
-import univ.waseda.weibin.proppatterns.util.LoggerHelper;
 
 public class TemplateServlet extends HttpServlet {
 
 	/**
 	 * 
 	 */
-	public Logger logger = LoggerHelper.getLogger(this.getClass().getName());
+//	public Logger logger = LoggerHelper.getLogger(this.getClass().getName());
+	public Logger logger = LogManager.getLogger();
 	
 	private static final long serialVersionUID = -1198035746274678001L;
 	private String webInfPath;
@@ -35,7 +37,10 @@ public class TemplateServlet extends HttpServlet {
 		
 		webInfPath = this.getServletConfig().getServletContext().getRealPath("download/graph-templates/");
 		
-		logger.info("path of \"download/graph-templates/\": \n" + webInfPath);
+//		logger.info("path of \"download/graph-templates/\": \n" + webInfPath);
+		System.out.println("path of \"download/graph-templates/\": \n" + webInfPath);
+		logger.warn("123");
+//		logger.info("path of \"download/graph-templates/\": \n" + webInfPath);
 		
 		String templateJson = request.getParameter("templateJson");
 		

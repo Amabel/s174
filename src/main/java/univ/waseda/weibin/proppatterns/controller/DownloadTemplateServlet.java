@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import sun.rmi.runtime.Log;
-
 public class DownloadTemplateServlet extends HttpServlet {
 
 	/**
@@ -29,7 +27,7 @@ public class DownloadTemplateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String filename = request.getParameter("filename");  
-        System.out.println(filename);
+//        System.out.println(filename);
         
 //        response.setContentType(getServletContext().getMimeType(filename));
         response.setContentType("text/plain;charset=utf-8");

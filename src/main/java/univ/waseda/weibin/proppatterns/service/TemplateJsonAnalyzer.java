@@ -13,11 +13,11 @@ public class TemplateJsonAnalyzer implements JsonAnalyzer {
 	private Gson gson;
 	private ParamsAnalyzer paramsAnalyzer;
 	private TemplateGraphGenerator templateGraphGenerator;
-	private String webInfPath;
+	private String downloadDirPath;
 	private File graphTemplate;
 
-	public TemplateJsonAnalyzer(String webInfPath) {
-		this.webInfPath = webInfPath;
+	public TemplateJsonAnalyzer(String downloadDirPath) {
+		this.downloadDirPath = downloadDirPath;
 	}
 	
 	public void analyze(String templateJson) {
@@ -25,8 +25,6 @@ public class TemplateJsonAnalyzer implements JsonAnalyzer {
 		gson = new Gson();
 		
 		patternTemplate = gson.fromJson(templateJson, PatternTemplate.class);
-		
-		System.out.println("TemplateJsonAnalyzer: 27: " + patternTemplate);
 		
 		// pattern, params
 		// analyze params
@@ -39,7 +37,7 @@ public class TemplateJsonAnalyzer implements JsonAnalyzer {
 		
 //		String destPath = webInfPath + "/temps/generated-graphs/";
 		
-		graphTemplate = templateGraphGenerator.generateGraphFile(webInfPath);
+		graphTemplate = templateGraphGenerator.generateGraphFile(downloadDirPath);
 		
 	}
 	

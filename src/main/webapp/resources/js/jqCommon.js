@@ -130,10 +130,8 @@ $.submitTemplate = function(patternName, numProperty) {
 }
 
 $.showDownloadButton = function() {
-    // create button
-    // var buttonTag = '<div>' +
-    //     '<button type="button" class="btn form-control center-block" id="btnDownloadTemplate" alt="Download graph template"></button>' +
-    //     '</div>';
+    // remove previous download mark
+    $("#btnDownloadTemplate").remove();
     var buttonTag = '<div align="center">' +
         '<img src="resources/images/download-button.png" class="btn form-control" id="btnDownloadTemplate" alt="Download graph template" />' +
         '</div>';

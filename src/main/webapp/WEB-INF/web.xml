@@ -29,7 +29,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>DownloadTemplateServlet</servlet-name>
-        <url-pattern>/download-graph-template</url-pattern>
+        <url-pattern>/download/graph-template</url-pattern>
     </servlet-mapping>
 
 </web-app>

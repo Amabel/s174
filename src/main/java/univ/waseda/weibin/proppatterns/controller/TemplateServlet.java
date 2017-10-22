@@ -1,23 +1,14 @@
 package univ.waseda.weibin.proppatterns.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.net.URLEncoder;
-
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
-import univ.waseda.weibin.proppatterns.service.JsonAnalyzer;
 import univ.waseda.weibin.proppatterns.service.TemplateJsonAnalyzer;
 
 public class TemplateServlet extends HttpServlet {
@@ -37,7 +28,9 @@ public class TemplateServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		webInfPath = this.getServletConfig().getServletContext().getRealPath("WEB-INF");
+		webInfPath = this.getServletConfig().getServletContext().getRealPath("download/graph-templates/");
+		
+		System.out.println(webInfPath);
 		
 		String templateJson = request.getParameter("templateJson");
 		
@@ -48,7 +41,8 @@ public class TemplateServlet extends HttpServlet {
 		// get the gtaphTemplate file
 		File graphTemplate = templateJsonAnalyzer.getGraphTemplate();   
 		Gson gson = new Gson();
-		String graphTemplateJsonString = gson.toJson(graphTemplate.getAbsolutePath());
+		System.out.println(graphTemplate.getPath());
+		String graphTemplateJsonString = gson.toJson(graphTemplate.getName());
 		// return results (graph template)
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");

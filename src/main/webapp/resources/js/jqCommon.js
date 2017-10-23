@@ -1,3 +1,5 @@
+var graphTemppateFilePath;
+
 $(document).ready(function() {
     $.generateFormPatternSelection();
 });
@@ -45,6 +47,7 @@ $.addSelectListener = function(selectId, templates) {
     $("#" + selectId).change(function() {
         $(".templateDiv").remove();
         $("#btnSubmitTemplate").remove();
+        $("#btnDownloadTemplate").remove();
         var optValue = $(this).children('option:selected').val();
         $.showTemplate(selectId, templates[optValue]);
     });
@@ -58,7 +61,6 @@ $.showTemplate = function(selectId, template) {
     // );
     var reg = new RegExp("〇〇", "g");
     var replacedTemplate = template.replace(reg, ",property,");
-    console.log(replacedTemplate);
     var templateArray = replacedTemplate.split(",");
 
     var tags = '<div class="templateDiv input-group" id="' + selectId + 'Template">';
@@ -72,7 +74,6 @@ $.showTemplate = function(selectId, template) {
         }
     }
     tags += '</div>';
-    console.log(tags);
     $("#" + selectId).after(
         tags
     );
@@ -106,7 +107,6 @@ $.submitTemplate = function(patternName, numProperty) {
     var templateJson = new Object();
     templateJson.pattern = patternName;
     templateJson.params = params;
-    console.log(JSON.stringify(templateJson));
 
     // send json
     $.ajax({
@@ -117,11 +117,77 @@ $.submitTemplate = function(patternName, numProperty) {
             templateJson: JSON.stringify(templateJson)
         },
         success: function(data) {
-            alert("success");
+            // alert("success");
+            console.log(data);
+            graphTemppateFilePath = data;
+            $.showDownloadButton();
         },
         error: function(data) {
             alert('failed');
         }
     });
 
+}
+
+$.showDownloadButton = function() {
+    // remove previous download mark
+    $("#btnDownloadTemplate").remove();
+    var buttonTag = '<div align="center">' +
+        '<img src="resources/images/download-button.png" class="btn form-control" id="btnDownloadTemplate" alt="Download graph template" />' +
+        '</div>';
+
+    // append to submit button
+    $("#btnSubmitTemplate").parent().after(buttonTag);
+    $.addDownloadTemplateButtonListener2();
+}
+
+// $.addDownloadTemplateButtonListener1 = function() {
+//     $("#btnDownloadTemplate").click(function() {
+//         var url = "/s174/download/graph-templates/" + graphTemppateFilePath;
+//         console.log(url);
+//         $.fileDownload(url, {
+//             successCallback: function(url) {
+//
+//                 alert('You just got a file download dialog or ribbon for this URL :' + url);
+//             },
+//             failCallback: function(html, url) {
+//
+//                 alert('Your file download just failed for this URL:' + url + '\r\n' +
+//                     'Here was the resulting error HTML: \r\n' + html
+//                 );
+//             }
+//         });
+//     });
+// }
+
+$.addDownloadTemplateButtonListener2 = function() {
+    $("#btnDownloadTemplate").click(function() {
+
+
+        // $.fileDownload(graphTemppateFilePath);
+        $.ajax({
+            type: 'post',
+            url: 'download/graph-template',
+            dataType: 'text',
+            data: {
+                // filename: JSON.stringify(graphTemppateFilePath)
+                filename: graphTemppateFilePath
+            },
+            success: function(data) {
+                // alert("success");
+                // console.log(data);
+                // var url = this.url + "s/" + graphTemppateFilePath;
+                var form = $('<form></form>').attr('action', this.url).attr('method', 'post');
+                // Add the one key/value
+                form.append($("<input></input>").attr('type', 'hidden').attr('name', "filename").attr('value', graphTemppateFilePath));
+                //send request
+                form.appendTo('body').submit().remove();
+
+                console.log('file downloaded');
+            },
+            error: function(data) {
+                alert('fail');
+            }
+        });
+    });
 }

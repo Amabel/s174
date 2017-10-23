@@ -1,5 +1,6 @@
 package univ.waseda.weibin.proppatterns.service;
 
+import java.io.File;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -12,10 +13,11 @@ public class TemplateJsonAnalyzer implements JsonAnalyzer {
 	private Gson gson;
 	private ParamsAnalyzer paramsAnalyzer;
 	private TemplateGraphGenerator templateGraphGenerator;
-	private String webInfPath;
+	private String downloadDirPath;
+	private File graphTemplate;
 
-	public TemplateJsonAnalyzer(String webInfPath) {
-		this.webInfPath = webInfPath;
+	public TemplateJsonAnalyzer(String downloadDirPath) {
+		this.downloadDirPath = downloadDirPath;
 	}
 	
 	public void analyze(String templateJson) {
@@ -24,8 +26,6 @@ public class TemplateJsonAnalyzer implements JsonAnalyzer {
 		
 		patternTemplate = gson.fromJson(templateJson, PatternTemplate.class);
 		
-		System.out.println(patternTemplate);
-		
 		// pattern, params
 		// analyze params
 		paramsAnalyzer = new ParamsAnalyzer();
@@ -33,14 +33,18 @@ public class TemplateJsonAnalyzer implements JsonAnalyzer {
 		
 		// pattern, replacedParams
 		// generate pattern graph
-		
 		templateGraphGenerator = new TemplateGraphGenerator(patternTemplate.getPattern(), replacedParams);
 		
-		String destPath = webInfPath + "/temps/generated-graphs/";
+//		String destPath = webInfPath + "/temps/generated-graphs/";
 		
-		templateGraphGenerator.generateGraphFile(destPath);
+		graphTemplate = templateGraphGenerator.generateGraphFile(downloadDirPath);
 		
 	}
+	
+	public File getGraphTemplate() {
+		return this.graphTemplate;
+	}
+	
 	
 	private void findKeyWords() {
 		

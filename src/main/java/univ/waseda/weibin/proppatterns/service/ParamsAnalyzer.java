@@ -28,10 +28,12 @@ public class ParamsAnalyzer {
 		for (String str : srcParams) {
 			Iterator iterator = patternMap.entrySet().iterator();
 			while(iterator.hasNext()) {
-				Map.Entry<String, String> entry = (Map.Entry<String, String>) iterator.next();
-				String key = entry.getKey();
-				String value = entry.getValue();
-				str = str.replace(key, value);
+				Map.Entry entry = (Map.Entry) iterator.next();
+				String key = (String) entry.getKey();
+				String value = (String) entry.getValue();
+				if (str.contains(key)) {
+					str = str.replace(key, value);
+				}		
 				res.add(str);
 			}
 		}

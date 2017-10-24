@@ -38,7 +38,7 @@ public class TemplateServlet extends HttpServlet {
 
 		templatesDirPath = this.getServletConfig().getServletContext().getRealPath("download/graph-templates/");
 
-		logger.trace("path of \"download/graph-templates/\": \n\t" + templatesDirPath);
+		logger.trace("path to \"download/graph-templates/\": " + templatesDirPath);
 
 		String templateJson = request.getParameter("templateJson");
 

@@ -1,6 +1,3 @@
-
-
-
 body {
     background-color: #fff7af;
     margin: 0 20px;
@@ -33,22 +30,26 @@ a:hover {
     margin-top: 10px;
 }
 
-#btnDownloadTemplate {
+img#btnDownloadTemplate {
     margin-top: 10px;
     width: 100px;
     height: 87px;
     background-color: #fff7af;
 }
 
-#btnDownloadTemplate:hover{
-    cursor: pointer;
+span#btnDownloadTemplate {
+    margin-top: 10px;
+    background-color: #fff7af;
+    color: blue;
+    text-decoration: underline;
 }
 
+div#retDiv {
+    margin-bottom: 30px;
+}
 
-
-.center_div{
-    margin: 0 auto;
-    width:80% /* value of your choice which suits your alignment */
+#btnDownloadTemplate:hover{
+    cursor: pointer;
 }
 
 .bkred {

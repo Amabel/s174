@@ -58,6 +58,12 @@
 	    <artifactId>jquery</artifactId>
 	    <version>3.2.1</version>
 	</dependency>
+	<dependency>
+	    <groupId>univ.waseda.weibin</groupId>
+	    <artifactId>ltlgen</artifactId>
+	    <version>1.0</version>
+	</dependency>
+
   </dependencies>
   <build>
     <finalName>s174</finalName>

@@ -75,7 +75,7 @@
             </nodes>
             <nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="EndPoint">
                 <id>13</id>
-                <name>b&gt;c</name>
+                <name></name>
                 <metadata>
                     <name>jUCMNav EndPoint local</name>
                     <value>false</value>

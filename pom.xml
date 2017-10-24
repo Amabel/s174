@@ -7,6 +7,10 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>s174 Maven Webapp</name>
   <url>http://maven.apache.org</url>
+  <properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
   <dependencies>
   	<dependency>
 	    <groupId>javax.servlet</groupId>
@@ -57,11 +61,6 @@
 	    <groupId>org.webjars</groupId>
 	    <artifactId>jquery</artifactId>
 	    <version>3.2.1</version>
-	</dependency>
-	<dependency>
-	    <groupId>univ.waseda.weibin</groupId>
-	    <artifactId>ltlgen</artifactId>
-	    <version>1.0</version>
 	</dependency>
 
   </dependencies>

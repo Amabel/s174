@@ -48,6 +48,7 @@ $.addSelectListener = function(selectId, templates) {
         $(".templateDiv").remove();
         $("#btnSubmitTemplate").remove();
         $("#btnDownloadTemplate").remove();
+        $("#retDiv").remove();
         var optValue = $(this).children('option:selected').val();
         $.showTemplate(selectId, templates[optValue]);
     });
@@ -67,7 +68,7 @@ $.showTemplate = function(selectId, template) {
     var propertyIndex = 0;
     for (var i = 0; i < templateArray.length; i++) {
         if (templateArray[i] == "property") {
-            tags += '<input type="text" class="form-control" id="templateProperty' + propertyIndex + '">';
+            tags += '<input type="text" class="form-control" id="templateProperty' + propertyIndex + '" required>';
             propertyIndex++;
         } else if (templateArray[i] != "") {
             tags += '<span class="input-group-addon">' + templateArray[i] + '</span>';
@@ -118,9 +119,11 @@ $.submitTemplate = function(patternName, numProperty) {
         },
         success: function(data) {
             // alert("success");
-            console.log(data);
-            graphTemppateFilePath = data;
+            retJson = JSON.parse(data);
+            console.log(retJson);
+            graphTemppateFilePath = retJson.graphTemplateFileName;
             $.showDownloadButton();
+            $.showLTLFormula(retJson.ltl);
         },
         error: function(data) {
             alert('failed');
@@ -129,11 +132,24 @@ $.submitTemplate = function(patternName, numProperty) {
 
 }
 
+$.showLTLFormula = function(ltl) {
+    $("#LTLFormula").remove();
+    var ltlFormulaTag = '<span id="LTLFormula">' +
+        "LTLFormula: <br>" +
+        "pattern: " + ltl.pattern + "<br>" +
+        "scope: " + ltl.scope + "<br>" +
+        "ltl: " + ltl.formula + "<br>" +
+        "</span>";
+    $("#btnDownloadTemplate").before(ltlFormulaTag);
+}
+
 $.showDownloadButton = function() {
     // remove previous download mark
+    $("#retDiv").remove();
     $("#btnDownloadTemplate").remove();
-    var buttonTag = '<div align="center">' +
-        '<img src="resources/images/download-button.png" class="btn form-control" id="btnDownloadTemplate" alt="Download graph template" />' +
+    var buttonTag = '<div id="retDiv">' +
+        // '<img title="Download XML file" src="resources/images/download-button.png" class = "btn form-control" id="btnDownloadTemplate" alt="Download XML file" />' +
+        '<span id="btnDownloadTemplate">download XML file</span>' +
         '</div>';
 
     // append to submit button

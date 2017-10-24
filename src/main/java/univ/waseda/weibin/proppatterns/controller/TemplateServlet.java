@@ -13,6 +13,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import univ.waseda.weibin.ltlgen.formula.LTL;
+import univ.waseda.weibin.ltlgen.service.LTLGenerator;
 import univ.waseda.weibin.proppatterns.service.TemplateJsonAnalyzer;
 
 public class TemplateServlet extends HttpServlet {
@@ -36,9 +42,11 @@ public class TemplateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		logger.trace("submit template button clicked.");
+		
 		templatesDirPath = this.getServletConfig().getServletContext().getRealPath("download/graph-templates/");
 
-		logger.trace("path of \"download/graph-templates/\": \n\t" + templatesDirPath);
+		logger.debug("path to \"download/graph-templates/\": " + templatesDirPath);
 
 		String templateJson = request.getParameter("templateJson");
 
@@ -48,14 +56,37 @@ public class TemplateServlet extends HttpServlet {
 
 		// get the gtaphTemplate file
 		File graphTemplate = templateJsonAnalyzer.getGraphTemplate();
+		logger.debug("graph template generated, file path: " + graphTemplate.getPath());
+		
+		// ltlgen 
+		LTL ltl = new LTLGenerator(graphTemplate.getPath()).generate();
+		logger.trace("ltl formula generated.");
+		logger.debug("ltl: " + ltl);
+		
 		Gson gson = new Gson();
-		String graphTemplateJsonString = gson.toJson(graphTemplate.getName());
+		JsonObject retJson = new JsonObject();
+		JsonElement graphTemplateFileName = new JsonParser().parse(graphTemplate.getName());
+		
+		logger.trace("get graph template filename.");
+		
+		retJson.add("graphTemplateFileName", graphTemplateFileName);
+		
+		logger.trace("filename added to retJson.");
+		
+		String ltlJson = gson.toJson(ltl);
+		retJson.add("ltl", new JsonParser().parse(ltlJson));
+		
+		logger.trace("ltl added to retJson.");
+		
 		// return results (graph template)
+		String retStr = gson.toJson(retJson);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
-		out.write(graphTemplateJsonString);
+		out.write(gson.toJson(retStr));
 		out.close();
+		logger.debug("write graphTemplateJsonString: " + retStr);
+		logger.trace("retStr sent.");
 	}
 
 }

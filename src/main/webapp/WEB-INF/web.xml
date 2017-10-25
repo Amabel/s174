@@ -27,20 +27,9 @@
 	    <servlet-name>DownloadTemplateServlet</servlet-name>
 	    <servlet-class>univ.waseda.weibin.proppatterns.controller.DownloadTemplateServlet</servlet-class>
     </servlet>
-    <servlet>
-    	<description>
-    	</description>
-    	<display-name>LoginServlet</display-name>
-    	<servlet-name>LoginServlet</servlet-name>
-    	<servlet-class>univ.waseda.weibin.proppatterns.controller.LoginServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>DownloadTemplateServlet</servlet-name>
         <url-pattern>/download/graph-template</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-    	<servlet-name>LoginServlet</servlet-name>
-    	<url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
     
     <!-- log4j2-begin -->  

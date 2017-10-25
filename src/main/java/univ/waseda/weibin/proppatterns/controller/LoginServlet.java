@@ -36,6 +36,7 @@ public class LoginServlet extends HttpServlet {
 		logger.debug(pwd);
 		if (pwd.equalsIgnoreCase(DigestUtils.sha1Hex("dntowaseda"))) {
 			logger.debug("login succeeded redirect to: " + req.getContextPath() + "/index.html");
+			System.out.println(req.getContextPath() + "/index.html");
 //			response.sendRedirect(request.getContextPath() + "/index.html");
 			req.getRequestDispatcher("/WEB-INF/index.html").forward(req, resp);
 		}

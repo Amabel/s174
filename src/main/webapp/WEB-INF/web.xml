@@ -6,12 +6,12 @@
     </welcome-file-list>
 
     <servlet>
-        <servlet-name>MyServlet</servlet-name>
-        <servlet-class>demo.MyServlet</servlet-class>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>univ.waseda.weibin.proppatterns.controller.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>MyServlet</servlet-name>
-        <url-pattern>/requirement</url-pattern>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/index.html</url-pattern>
     </servlet-mapping>
     
     <servlet>

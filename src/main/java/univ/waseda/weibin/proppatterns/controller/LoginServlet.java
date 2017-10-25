@@ -11,8 +11,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.google.gson.Gson;
-
 public class LoginServlet extends HttpServlet {
 
 	/**
@@ -38,7 +36,9 @@ public class LoginServlet extends HttpServlet {
 			logger.debug("login succeeded redirect to: " + req.getContextPath() + "/index.html");
 			System.out.println(req.getContextPath() + "/index.html");
 //			response.sendRedirect(request.getContextPath() + "/index.html");
-			req.getRequestDispatcher("/WEB-INF/index.html").forward(req, resp);
+			String url = this.getServletContext().getRealPath("WEB-INF");
+			logger.debug(url);
+			req.getRequestDispatcher("WEB-INF/index.html").forward(req, resp);
 		}
 	}
 }

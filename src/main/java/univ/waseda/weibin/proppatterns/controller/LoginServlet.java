@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
-		super.doGet(request, response);
+		doPost(request, response);
 	}
 
 	/**
@@ -49,6 +49,8 @@ public class LoginServlet extends HttpServlet {
 			logger.debug("login succeeded redirect to: " + request.getContextPath() + "/index.html");
 //			response.sendRedirect(request.getContextPath() + "/index.html");
 			request.getRequestDispatcher("/WEB-INF/index.html").forward(request, response);
+		} else {
+			request.getRequestDispatcher("/WEB-INF/login.html").forward(request, response);
 		}
 		
 	}

@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
 //		logger.debug(pwdJson);
 //		String pwd = gson.fromJson(pwdJson, String.class);
 		logger.debug(pwd);
-		if (pwd.equalsIgnoreCase(DigestUtils.sha1Hex("dntowaseda"))) {
+		if (pwd.equalsIgnoreCase("57daa94045409ad53159fce8f2225fd3bd723452")) {
 			logger.debug("login succeeded redirect to: " + req.getContextPath() + "/index.html");
 			System.out.println(req.getContextPath() + "/index.html");
 //			response.sendRedirect(request.getContextPath() + "/index.html");

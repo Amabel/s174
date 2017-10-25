@@ -7,7 +7,7 @@
 
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>univ.waseda.weibin.proppatterns.controller</servlet-class>
+        <servlet-class>univ.waseda.weibin.proppatterns.controller.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>

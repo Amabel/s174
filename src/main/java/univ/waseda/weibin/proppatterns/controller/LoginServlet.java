@@ -29,7 +29,6 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Logger logger = LogManager.getLogger();
-		Gson gson = new Gson();
 		
 		String pwd = req.getParameter("pwdInput");
 //		logger.debug(pwdJson);

@@ -27,12 +27,12 @@ public class TemplateJsonAnalyzer implements JsonAnalyzer {
 		System.out.println(patternTemplate);
 		// pattern, params
 		// analyze params
-		paramsAnalyzer = new ParamsAnalyzer();
-		List<String> replacedParams = paramsAnalyzer.analyze(patternTemplate.getParameters());
+		paramsAnalyzer = new ParamsAnalyzer(patternTemplate.getParams(), patternTemplate.getAfters(), patternTemplate.getBefores());
+		paramsAnalyzer.analyze();
 		
 		// pattern, replacedParams
 		// generate pattern graph
-		templateGraphGenerator = new TemplateGraphGenerator(patternTemplate.getPattern(), replacedParams);
+		templateGraphGenerator = new TemplateGraphGenerator(patternTemplate.getPattern(), paramsAnalyzer.getReplacedParams(), paramsAnalyzer.getReplacedAfters().get(0), paramsAnalyzer.getReplacedBefores().get(0));
 		
 //		String destPath = webInfPath + "/temps/generated-graphs/";
 		

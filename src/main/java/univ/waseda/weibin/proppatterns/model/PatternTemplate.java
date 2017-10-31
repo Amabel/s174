@@ -4,14 +4,21 @@ public class PatternTemplate {
 	
 	private String pattern;
 	private String[] params;
-	private String[] before;
-	private String[] after;
+	private String[] befores;
+	private String[] afters;
 	
 	public String getPattern() {
 		return pattern;
 	}
-	public String[] getParameters() {
+	
+	public String[] getParams() {
 		return params;
+	}
+	public String[] getBefores() {
+		return befores;
+	}
+	public String[] getAfters() {
+		return afters;
 	}
 	
 	@Override
@@ -22,13 +29,14 @@ public class PatternTemplate {
 			str += param + " ";
 		}
 		
-		str += "\nScope: before: ";
-		for(String be : before) {
-			str += be + " ";
-		}
-		str += " after: ";
-		for(String af : after) {
+		str += "\nScope: after: ";
+		for(String af : afters) {
 			str += af + " ";
+		}
+		
+		str += " before: ";
+		for(String be : befores) {
+			str += be + " ";
 		}
 		
 		return str;

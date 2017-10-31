@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.dom4j.Element;
 import org.dom4j.Node;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
@@ -24,10 +25,16 @@ public class TemplateGraphGenerator {
 	File destFile;
 	String pattern;
 	List<String> params;
+	String after;
+	String before; 
+	Document document;
 	
-	public TemplateGraphGenerator(String pattern, List<String> params) {
+	public TemplateGraphGenerator(String pattern, List<String> params, String after, String before) {
 		this.pattern = pattern;
 		this.params = params;
+		this.after = after;
+		this.before = before;
+		System.out.println(before);
 	}
 	
 	public File generateGraphFile(String destPath) {
@@ -56,14 +63,16 @@ public class TemplateGraphGenerator {
 	}
 	
 	private File writeXmlFile(String destPath) {
-		Document document = replaceProperties();
+		// replace before after
+		replaceProperties();
+		replaceAfter();
+		replaceBefore();
 		// write into new file (dest file)
-		File destFile = writeDocumentToFile(document, destPath);
-//		System.out.println(destFile.getAbsolutePath());	
+		File destFile = writeDocumentToFile(destPath);
 		return destFile;
 	}
 	
-	private File writeDocumentToFile(Document document, String destDirPath) {
+	private File writeDocumentToFile(String destDirPath) {
 		
 		// create dir
 		File destDir = new File(destDirPath);
@@ -71,15 +80,11 @@ public class TemplateGraphGenerator {
 			destDir.mkdirs();
 		}
 		
-//		System.out.println(destDir);
-		
 		// write document to dest file
 		SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd-HHmmss");
 		String destFileName = "prop-pattern-" + df.format(new Date()) + ".z151";
         String destFilePath = destDirPath + destFileName;
         File destFile = new File(destFilePath);
-        
-        System.out.println(destFile);
 		
 		OutputFormat format = OutputFormat.createPrettyPrint();  
         format.setEncoding("UTF-8");
@@ -98,10 +103,9 @@ public class TemplateGraphGenerator {
 		return destFile;
 	}
 	
-	private Document replaceProperties() {
+	private void replaceProperties() {
 		String xPath = "//responsibilities/name";
 		SAXReader reader = new SAXReader();
-		Document document = null;
 		try {
 			document = reader.read(srcFile);
 		} catch (DocumentException e) {
@@ -122,7 +126,6 @@ public class TemplateGraphGenerator {
 			System.out.println("Error: incorrect number of node: " + nodes.size());
 			break;
 		}
-		return document;
 	}
 	
 	private void replaceP(List<Node> nodes) {
@@ -164,4 +167,13 @@ public class TemplateGraphGenerator {
 		
 	}
 	
+	private void replaceAfter() {
+		String xPathStartPointName = "//ucmMaps/nodes[@*[name()='xsi:type']='StartPoint']/name";
+		document.selectNodes(xPathStartPointName).get(0).setText(after);
+	}
+	
+	private void replaceBefore() {		
+		String xPathEndPointName = "//ucmMaps/nodes[@*[name()='xsi:type']='EndPoint']/name";
+		document.selectNodes(xPathEndPointName).get(0).setText(before);
+	}
 }

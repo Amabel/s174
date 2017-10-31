@@ -12,6 +12,11 @@ a:hover {
     color: black;
 }
 
+.selectwidthauto
+{
+     width:20px !important;
+}
+
 .header {
     font-family: "Arial Black", "Arial Bold", Gadget, sans-serif;
     font-size: 48px;
@@ -58,6 +63,10 @@ div#retDiv {
 
 div.propertyDiv {
     margin: 10px 0;
+}
+
+.addPropertyButton:hover {
+    cursor: pointer;
 }
 
 /*div.scope {

@@ -10,22 +10,38 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import sun.awt.RepaintArea;
+
 public class ParamsAnalyzer {
 	
-	Map<String, String> patternMap;
+	private Map<String, String> patternMap;
+	private String[] params;
+	private String[] afters;
+	private String[] befores;
+	private List<String> replacedParams;
+	private List<String> replacedAfters;
+	private List<String> replacedBefores;
 	
 	public ParamsAnalyzer() {
 		createMap();
 	}
+	
+	public ParamsAnalyzer(String[] params, String[] afters, String[] befores) {
+		this.params = params;
+		this.afters = afters;
+		this.befores = befores;
+		createMap();
+	}
 
-	public List<String> analyze(String[] params) {
-		return replaceKeyWords(params);
+	public void analyze() {
+		replaceParams();
+		replaceAfters();
+		replaceBefores();
 	}
 	
-	private List<String> replaceKeyWords(String[] srcParams) {
-		
-		List<String> res = new ArrayList<String>();
-		for (String str : srcParams) {
+	private void replaceParams() {
+		replacedParams = new ArrayList<String>();
+		for (String str : this.params) {
 			Iterator iterator = patternMap.entrySet().iterator();
 			do {
 				Map.Entry entry = (Map.Entry) iterator.next();
@@ -35,9 +51,40 @@ public class ParamsAnalyzer {
 					str = str.replace(key, value);
 				}					
 			} while(iterator.hasNext());
-			res.add(str);
+			replacedParams.add(str);
 		}
-		return res;
+	}
+	
+	private void replaceAfters() {
+		replacedAfters = new ArrayList<String>();
+		for (String str : this.afters) {
+			Iterator iterator = patternMap.entrySet().iterator();
+			do {
+				Map.Entry entry = (Map.Entry) iterator.next();
+				String key = (String) entry.getKey();
+				String value = (String) entry.getValue();
+				if (str.contains(key)) {
+					str = str.replace(key, value);
+				}					
+			} while(iterator.hasNext());
+			replacedAfters.add(str);
+		}
+	}
+	
+	private void replaceBefores() {
+		replacedBefores = new ArrayList<String>();
+		for (String str : this.befores) {
+			Iterator iterator = patternMap.entrySet().iterator();
+			do {
+				Map.Entry entry = (Map.Entry) iterator.next();
+				String key = (String) entry.getKey();
+				String value = (String) entry.getValue();
+				if (str.contains(key)) {
+					str = str.replace(key, value);
+				}					
+			} while(iterator.hasNext());
+			replacedBefores.add(str);
+		}
 	}
 	
 	private void createMap() {
@@ -61,9 +108,19 @@ public class ParamsAnalyzer {
 		patternMap = new HashMap<String, String>((Map)patternMappingProperties);
 //		traverseMap();
 	}
-	
-	
-	
+
+	public List<String> getReplacedParams() {
+		return replacedParams;
+	}
+
+	public List<String> getReplacedAfters() {
+		return replacedAfters;
+	}
+
+	public List<String> getReplacedBefores() {
+		return replacedBefores;
+	}
+
 	private void traverseMap() {
 		Iterator iterator = patternMap.entrySet().iterator();
 		while(iterator.hasNext()) {
@@ -72,5 +129,4 @@ public class ParamsAnalyzer {
 			
 		}
 	}
-
 }

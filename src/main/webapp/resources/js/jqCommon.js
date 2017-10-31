@@ -1,4 +1,8 @@
 var graphTemppateFilePath;
+var indexProperty0;
+var indexProperty1;
+var indexProperty0Conn;
+var indexProperty1Conn;
 
 $(document).ready(function() {
     $.generateFormPatternSelection();
@@ -9,17 +13,6 @@ $.generateFormPatternSelection = function() {
     // load json and add divs
     $.getJSON("resources/common/patterns.json", function(data) {
         $.each(data.property_patterns, function(key, patterns) {
-            // $.each(patterns, function(patternName, pattern) {
-            //     var tfid = "tfPtn" + patternName;
-            //     $("#formPatternSelection").append(
-            //         '<div class="form-group">' +
-            //         '<label for="' + tfid + '">' + pattern.name + '： </label><br>' +
-            //         '<label>' + pattern.intent + '</label>' +
-            //         '<input type="text" class="form-control" name="' + tfid + '" value="" id="' + tfid + '">' +
-            //         '</div>'
-            //     );
-            // });
-
             $.each(patterns, function(patternName, pattern) {
                 var selectId = "selectPtn" + patternName;
                 var optionTags = "";
@@ -44,6 +37,9 @@ $.generateFormPatternSelection = function() {
 }
 
 $.addSelectListener = function(selectId, templates) {
+    // reset params
+    $.resetGlobalVars();
+
     $("#" + selectId).change(function() {
         $(".templateDiv").remove();
         $("#btnSubmitTemplate").remove();
@@ -55,27 +51,54 @@ $.addSelectListener = function(selectId, templates) {
 }
 
 $.showTemplate = function(selectId, template) {
-    // $("#" + selectId).after(
-    //     '<div class="templateDiv" id="' + selectId + 'Template">' +
-    //     template +
-    //     '</div>'
-    // );
     var reg = new RegExp("〇〇", "g");
     var replacedTemplate = template.replace(reg, ",property,");
     var templateArray = replacedTemplate.split(",");
 
     var tags = '<div class="templateDiv" id="' + selectId + 'Template">' +
-        '<div class="propertyDiv input-group">';
+        '<div class="propertyDiv">';
     // var tags = '<div class="templateDiv input-group" id="templateDiv">';
     var propertyIndex = 0;
-    for (var i = 0; i < templateArray.length; i++) {
+    var flagBr = false;
+    var tag = "";
+    for (var i = 0, j = 0; i < templateArray.length; i++) {
         if (templateArray[i] == "property") {
-            tags += '<input type="text" class="form-control" id="templateProperty' + propertyIndex + '" required>';
+            tag += '<input type="text" class="form-control" id="templateProperty' + propertyIndex + '">';
             propertyIndex++;
+        } else if (i > 0 && templateArray[i] != "") {
+            tag += '<span class="input-group-addon addPropertyButton" id="btnAddProperty' + j + '" >' + templateArray[i] + '</span>';
+            j++;
+            flagBr = true;
         } else if (templateArray[i] != "") {
-            tags += '<span class="input-group-addon">' + templateArray[i] + '</span>';
+            tag += '<span class="input-group-addon">' + templateArray[i] + '</span>';
         }
+        if (flagBr) {
+            if (j == 1) {
+                tag = '<div class="input-group" id="propertyGroup0_' + indexProperty0 + '">' + tag + '</div>';
+                indexProperty0++;
+            } else if (j == 2) {
+                tag = '<div class="input-group" id="propertyGroup1_' + indexProperty1 + '">' + tag + '</div>';
+                indexProperty1++;
+            }
+            flagBr = false;
+            tags += tag;
+            tag = "";
+        }
+
     }
+    // for (var i = 0, j = 0; i < templateArray.length; i++) {
+    //     tags += '<div class="input-group" id="propertyGroup' + i + '">';
+    //     if (templateArray[i] == "property") {
+    //         tags += '<input type="text" class="form-control" id="templateProperty' + propertyIndex + '">';
+    //         propertyIndex++;
+    //     } else if (i > 0 && templateArray[i] != "") {
+    //         tags += '<span class="input-group-addon addPropertyButton" id="btnAddProperty' + j + '" >' + templateArray[i] + '</span>';
+    //         j++;
+    //     } else if (templateArray[i] != "") {
+    //         tags += '<span class="input-group-addon">' + templateArray[i] + '</span>';
+    //     }
+    //     tags += '</div>';
+    // }
     tags += '</div></div>';
     $("#" + selectId).after(
         tags
@@ -99,6 +122,7 @@ $.showTemplate = function(selectId, template) {
         '<button type="button" class="btn btn-success btnAddScope" id="btnAddScope">Add scope</button>' +
         '</div>';
     $(".templateDiv").prepend(addScopeTag);
+    $.addPropertyButtonListener();
     $.addAddScopeListener();
 }
 
@@ -138,16 +162,17 @@ $.submitTemplate = function(patternName, numProperty) {
         params[i] = $("#templateProperty" + i).val();
     }
     // find scope
-    var after = new Array();
-    var before = new Array();
-    after[0] = $("#tfAfterScope").val();
-    before[0] = $("#tfBeforeScope").val();
+    var afters = new Array();
+    var befores = new Array();
+    afters[0] = $("#tfAfterScope").val() || "";
+    befores[0] = $("#tfBeforeScope").val() || "";
     // new json
     var templateJson = new Object();
     templateJson.pattern = patternName;
     templateJson.params = params;
-    templateJson.before = before;
-    templateJson.after = after;
+    templateJson.afters = afters;
+    templateJson.befores = befores;
+
 
     // send json
     $.ajax({
@@ -227,4 +252,42 @@ $.addDownloadTemplateButtonListener = function() {
             }
         });
     });
+}
+
+$.addPropertyButtonListener = function() {
+    $(".addPropertyButton").click(function(event) {
+        console.log($(this).attr("id"));
+        var btnIndex = $(this).attr("id").substr(-1);
+        var divId = "";
+        if (btnIndex == 0) {
+            divId = 'propertyGroup' + btnIndex + '_' + indexProperty0;
+            var destTag = '<div class="input-group" id="' + divId + '">' +
+                '<select class="form-control col-sm-2 col-md-2" id="propertyConn"' + btnIndex + '_' + indexProperty0Conn + '>' +
+                '<option>AND</option>' +
+                '<option>OR</option>' +
+                '</select>' +
+                '<input type="text" class="form-control" id="templateProperty0_' + indexProperty0 + '2">' +
+                '</div>';
+            indexProperty0++;
+        } else if (btnIndex == 1) {
+            divId = 'propertyGroup' + btnIndex + '_' + indexProperty1;
+            var destTag = '<div class="input-group" id="' + divId + '">' +
+                '<select class="form-control col-sm-2 col-md-2" id="propertyConn' + btnIndex + '_' + indexProperty1Conn + '">' +
+                '<option>AND</option>' +
+                '<option>OR</option>' +
+                '</select>' +
+                '<input type="text" class="form-control" id="templateProperty1_' + indexProperty1 + '">' +
+                '</div>';
+            indexProperty1++;
+        }
+        $(this).parent().after(destTag);
+        $("#" + divId).append($(this));
+    });
+}
+
+$.resetGlobalVars = function() {
+    indexProperty0 = 0;
+    indexProperty1 = 0;
+    indexProperty0Conn = 0;
+    indexProperty1Conn = 0;
 }

@@ -104,17 +104,25 @@ $.showTemplate = function(selectId, template) {
 
 $.addAddScopeListener = function() {
     $("#btnAddScope").click(function() {
-        var afterScopeTag = '<div>' +
-            '<div class="form-group" id="divAfterScpoe">' +
-            '<label class="scopeLabel control-label" for="afterScope">After: </label>' +
-            '<div>' +
-            '<input type="text" class="form-control" id="afterScope">' +
-            '</div></div></div>';
-        var beforeScopeTag = '<div class="form-group" id="divBeforeScope">' +
-            '<label for="beforeScope" class="control-label">Before: </label>' +
-            '<div>' +
-            '<input type="text" class="form-control" id="beforeScope">' +
-            '</div></div>';
+        // var afterScopeTag = '<div>' +
+        //     '<div class="form-group" id="divAfterScpoe">' +
+        //     '<label class="scopeLabel control-label" for="afterScope">After: </label>' +
+        //     '<div>' +
+        //     '<input type="text" class="form-control" id="afterScope">' +
+        //     '</div></div></div>';
+        var afterScopeTag = '<div class="input-group">' +
+            '<span class="input-group-addon">After: </span>' +
+            '<input type="text" class="form-control" id="tfAfterScope" value="">' +
+            '</div>';
+        // var beforeScopeTag = '<div class="form-group" id="divBeforeScope">' +
+        //     '<label for="beforeScope" class="control-label">Before: </label>' +
+        //     '<div>' +
+        //     '<input type="text" class="form-control" id="beforeScope">' +
+        //     '</div></div>';
+        var beforeScopeTag = '<div class="input-group">' +
+            '<span class="input-group-addon">Before: </span>' +
+            '<input type="text" class="form-control" id="tfBeforeScope" value="">' +
+            '</div>';
         $(".templateDiv").prepend(afterScopeTag);
         $(".templateDiv").append(beforeScopeTag);
         $("#btnAddScope").parent().remove();
@@ -129,10 +137,17 @@ $.submitTemplate = function(patternName, numProperty) {
         console.log("param " + i + ": " + $("#templateProperty" + i).val());
         params[i] = $("#templateProperty" + i).val();
     }
+    // find scope
+    var after = new Array();
+    var before = new Array();
+    after[0] = $("#tfAfterScope").val();
+    before[0] = $("#tfBeforeScope").val();
     // new json
     var templateJson = new Object();
     templateJson.pattern = patternName;
     templateJson.params = params;
+    templateJson.before = before;
+    templateJson.after = after;
 
     // send json
     $.ajax({

@@ -26,7 +26,6 @@ public class ParamsAnalyzer {
 		
 		List<String> res = new ArrayList<String>();
 		for (String str : srcParams) {
-			System.out.println("str: " + str);
 			Iterator iterator = patternMap.entrySet().iterator();
 			do {
 				Map.Entry entry = (Map.Entry) iterator.next();

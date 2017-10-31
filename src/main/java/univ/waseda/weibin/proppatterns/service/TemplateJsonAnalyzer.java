@@ -24,7 +24,7 @@ public class TemplateJsonAnalyzer implements JsonAnalyzer {
 		gson = new Gson();
 		
 		patternTemplate = gson.fromJson(templateJson, PatternTemplate.class);
-		
+		System.out.println(patternTemplate);
 		// pattern, params
 		// analyze params
 		paramsAnalyzer = new ParamsAnalyzer();

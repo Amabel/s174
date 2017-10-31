@@ -119,7 +119,7 @@ $.showTemplate = function(selectId, template) {
         $.submitTemplate(patternName, propertyIndex);
     });
     var addScopeTag = '<div>' +
-        '<button type="button" class="btn btn-success btnAddScope" id="btnAddScope">Add scope</button>' +
+        '<button type="button" class="btn btn-primary btnAddScope" id="btnAddScope">Add scope</button>' +
         '</div>';
     $(".templateDiv").prepend(addScopeTag);
     $.addPropertyButtonListener();

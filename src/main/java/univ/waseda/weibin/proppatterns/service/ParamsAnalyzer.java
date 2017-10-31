@@ -26,18 +26,18 @@ public class ParamsAnalyzer {
 		
 		List<String> res = new ArrayList<String>();
 		for (String str : srcParams) {
+			System.out.println("str: " + str);
 			Iterator iterator = patternMap.entrySet().iterator();
-			while(iterator.hasNext()) {
+			do {
 				Map.Entry entry = (Map.Entry) iterator.next();
 				String key = (String) entry.getKey();
 				String value = (String) entry.getValue();
 				if (str.contains(key)) {
 					str = str.replace(key, value);
-				}		
-				res.add(str);
-			}
+				}					
+			} while(iterator.hasNext());
+			res.add(str);
 		}
-		
 		return res;
 	}
 	
@@ -60,6 +60,7 @@ public class ParamsAnalyzer {
 			e.printStackTrace();
 		}
 		patternMap = new HashMap<String, String>((Map)patternMappingProperties);
+//		traverseMap();
 	}
 	
 	

@@ -35,7 +35,7 @@ public class TemplateGraphGenerator {
 		Properties graphPathProperties = new Properties();
 		String propFileName = "graph-template-path.properties";
 		String path = TemplateGraphGenerator.class.getClassLoader().getResource(propFileName).getPath();
-		System.out.println(path);
+//		System.out.println(path);
 		try {
 			FileInputStream in = new FileInputStream(path);
 			graphPathProperties.load(in);
@@ -71,7 +71,7 @@ public class TemplateGraphGenerator {
 			destDir.mkdirs();
 		}
 		
-		System.out.println(destDir);
+//		System.out.println(destDir);
 		
 		// write document to dest file
 		SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd-HHmmss");

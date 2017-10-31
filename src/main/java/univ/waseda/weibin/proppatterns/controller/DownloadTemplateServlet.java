@@ -10,8 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class DownloadTemplateServlet extends HttpServlet {
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+public class DownloadTemplateServlet extends HttpServlet {
+	public Logger logger = LogManager.getLogger();
 	/**
 	 * 
 	 */
@@ -44,6 +47,7 @@ public class DownloadTemplateServlet extends HttpServlet {
         }  
         out.close();  
         in.close();  
+        logger.info("User download a file: " + filename);
         
         
 	}

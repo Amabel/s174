@@ -54,7 +54,7 @@ public class TemplateServlet extends HttpServlet {
 		TemplateJsonAnalyzer templateJsonAnalyzer = new TemplateJsonAnalyzer(templatesDirPath);
 		templateJsonAnalyzer.analyze(templateJson);
 
-		// get the gtaphTemplate file
+		// get the graphTemplate file
 		File graphTemplate = templateJsonAnalyzer.getGraphTemplate();
 		logger.debug("graph template generated, file path: " + graphTemplate.getPath());
 		

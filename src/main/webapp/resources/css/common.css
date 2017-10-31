@@ -1,6 +1,6 @@
 body {
     background-color: #fff7af;
-    margin: 0 20px;
+    /*margin: 0 20px;*/
 }
 
 a {
@@ -51,6 +51,24 @@ div#retDiv {
 #btnDownloadTemplate:hover{
     cursor: pointer;
 }
+
+.scopeLabel {
+
+}
+
+div.propertyDiv {
+    margin: 10px 0;
+}
+
+/*div.scope {
+    display: block;
+    float: none;
+}
+
+div#divAfterScpoe {
+    display: block;
+    float: none;
+}*/
 
 .bkred {
     background-color: red;

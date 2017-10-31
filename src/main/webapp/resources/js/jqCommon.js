@@ -64,7 +64,9 @@ $.showTemplate = function(selectId, template) {
     var replacedTemplate = template.replace(reg, ",property,");
     var templateArray = replacedTemplate.split(",");
 
-    var tags = '<div class="templateDiv input-group" id="' + selectId + 'Template">';
+    var tags = '<div class="templateDiv" id="' + selectId + 'Template">' +
+        '<div class="propertyDiv input-group">';
+    // var tags = '<div class="templateDiv input-group" id="templateDiv">';
     var propertyIndex = 0;
     for (var i = 0; i < templateArray.length; i++) {
         if (templateArray[i] == "property") {
@@ -74,7 +76,7 @@ $.showTemplate = function(selectId, template) {
             tags += '<span class="input-group-addon">' + templateArray[i] + '</span>';
         }
     }
-    tags += '</div>';
+    tags += '</div></div>';
     $("#" + selectId).after(
         tags
     );
@@ -89,10 +91,33 @@ $.showTemplate = function(selectId, template) {
     $("#btnSubmitTemplate").hide();
     $(".templateDiv").fadeIn();
     $("#btnSubmitTemplate").fadeIn();
-
     $("#btnSubmitTemplate").click(function() {
         var patternName = selectId.substr(9);
         $.submitTemplate(patternName, propertyIndex);
+    });
+    var addScopeTag = '<div>' +
+        '<button type="button" class="btn btn-success btnAddScope" id="btnAddScope">Add scope</button>' +
+        '</div>';
+    $(".templateDiv").prepend(addScopeTag);
+    $.addAddScopeListener();
+}
+
+$.addAddScopeListener = function() {
+    $("#btnAddScope").click(function() {
+        var afterScopeTag = '<div>' +
+            '<div class="form-group" id="divAfterScpoe">' +
+            '<label class="scopeLabel control-label" for="afterScope">After: </label>' +
+            '<div>' +
+            '<input type="text" class="form-control" id="afterScope">' +
+            '</div></div></div>';
+        var beforeScopeTag = '<div class="form-group" id="divBeforeScope">' +
+            '<label for="beforeScope" class="control-label">Before: </label>' +
+            '<div>' +
+            '<input type="text" class="form-control" id="beforeScope">' +
+            '</div></div>';
+        $(".templateDiv").prepend(afterScopeTag);
+        $(".templateDiv").append(beforeScopeTag);
+        $("#btnAddScope").parent().remove();
     });
 }
 
@@ -154,29 +179,10 @@ $.showDownloadButton = function() {
 
     // append to submit button
     $("#btnSubmitTemplate").parent().after(buttonTag);
-    $.addDownloadTemplateButtonListener2();
+    $.addDownloadTemplateButtonListener();
 }
 
-// $.addDownloadTemplateButtonListener1 = function() {
-//     $("#btnDownloadTemplate").click(function() {
-//         var url = "/s174/download/graph-templates/" + graphTemppateFilePath;
-//         console.log(url);
-//         $.fileDownload(url, {
-//             successCallback: function(url) {
-//
-//                 alert('You just got a file download dialog or ribbon for this URL :' + url);
-//             },
-//             failCallback: function(html, url) {
-//
-//                 alert('Your file download just failed for this URL:' + url + '\r\n' +
-//                     'Here was the resulting error HTML: \r\n' + html
-//                 );
-//             }
-//         });
-//     });
-// }
-
-$.addDownloadTemplateButtonListener2 = function() {
+$.addDownloadTemplateButtonListener = function() {
     $("#btnDownloadTemplate").click(function() {
 
 

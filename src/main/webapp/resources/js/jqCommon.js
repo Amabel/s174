@@ -63,7 +63,15 @@ $.showTemplate = function(selectId, template) {
     var tag = "";
     for (var i = 0, j = 0; i < templateArray.length; i++) {
         if (templateArray[i] == "property") {
-            tag += '<input type="text" class="form-control" id="templateProperty' + propertyIndex + '">';
+            tag += '<input type="text" class="form-control" id="templateProperty' + propertyIndex + '_0_op1">' +
+                '<select class="form-control col-md-1 col-sm-1" id="templateProperty' + propertyIndex + '_0_op">' +
+                '<option selected>==</option>' +
+                '<option>&gt</option>' +
+                '<option>&gt=</option>' +
+                '<option>&lt</option>' +
+                '<option>&lt=</option>' +
+                '<option>!=</option>' +
+                '<input type="text" class="form-control" id="templateProperty' + propertyIndex + '_0_op2">';
             propertyIndex++;
         } else if (i > 0 && templateArray[i] != "") {
             tag += '<span class="input-group-addon addPropertyButton" id="btnAddProperty' + j + '" >' + templateArray[i] + '</span>';
@@ -74,10 +82,10 @@ $.showTemplate = function(selectId, template) {
         }
         if (flagBr) {
             if (j == 1) {
-                tag = '<div class="input-group" id="propertyGroup0_' + indexProperty0 + '">' + tag + '</div>';
+                tag = '<div class="input-group property-group-0" id="propertyGroup0_' + indexProperty0 + '">' + tag + '</div>';
                 indexProperty0++;
             } else if (j == 2) {
-                tag = '<div class="input-group" id="propertyGroup1_' + indexProperty1 + '">' + tag + '</div>';
+                tag = '<div class="input-group property-group-1" id="propertyGroup1_' + indexProperty1 + '">' + tag + '</div>';
                 indexProperty1++;
             }
             flagBr = false;
@@ -256,29 +264,47 @@ $.addDownloadTemplateButtonListener = function() {
 
 $.addPropertyButtonListener = function() {
     $(".addPropertyButton").click(function(event) {
-        console.log($(this).attr("id"));
+        // console.log($(this).attr("id"));
         var btnIndex = $(this).attr("id").substr(-1);
         var divId = "";
         if (btnIndex == 0) {
             divId = 'propertyGroup' + btnIndex + '_' + indexProperty0;
-            var destTag = '<div class="input-group" id="' + divId + '">' +
-                '<select class="form-control col-sm-2 col-md-2" id="propertyConn"' + btnIndex + '_' + indexProperty0Conn + '>' +
-                '<option>AND</option>' +
-                '<option>OR</option>' +
+            var destTag = '<div class="input-group property-group-0" id="' + divId + '">' +
+                '<select class="form-control col-md-1 col-sm-2 " id="propertyConn' + btnIndex + '_' + indexProperty0Conn + '">' +
+                '<option>かつ</option>' +
+                '<option>または</option>' +
                 '</select>' +
-                '<input type="text" class="form-control" id="templateProperty0_' + indexProperty0 + '2">' +
-                '</div>';
+                '<input type="text" class="form-control col-md-5 col-sm-4" id="templateProperty0_' + indexProperty0 + '_op1">' +
+                '<select class="form-control col-md-1 col-sm-1" id="templateProperty0_' + indexProperty0 + '_op">' +
+                '<option selected>==</option>' +
+                '<option>&gt</option>' +
+                '<option>&gt=</option>' +
+                '<option>&lt</option>' +
+                '<option>&lt=</option>' +
+                '<option>!=</option>' +
+                '<input type="text" class="form-control" id="templateProperty0_' + indexProperty0 + '_op2">';
+            '</div>';
             indexProperty0++;
+            indexProperty0Conn++;
         } else if (btnIndex == 1) {
             divId = 'propertyGroup' + btnIndex + '_' + indexProperty1;
-            var destTag = '<div class="input-group" id="' + divId + '">' +
-                '<select class="form-control col-sm-2 col-md-2" id="propertyConn' + btnIndex + '_' + indexProperty1Conn + '">' +
-                '<option>AND</option>' +
-                '<option>OR</option>' +
+            var destTag = '<div class="input-group property-group-1" id="' + divId + '">' +
+                '<select class="form-control col-md-1 col-sm-2" id="propertyConn' + btnIndex + '_' + indexProperty1Conn + '">' +
+                '<option>かつ</option>' +
+                '<option>または</option>' +
                 '</select>' +
-                '<input type="text" class="form-control" id="templateProperty1_' + indexProperty1 + '">' +
-                '</div>';
+                '<input type="text" class="form-control col-md-5 col-sm-4" id="templateProperty1_' + indexProperty1 + '_op1">' +
+                '<select class="form-control col-md-1 col-sm-1" id="templateProperty1_' + indexProperty1 + '_op">' +
+                '<option selected>==</option>' +
+                '<option>&gt</option>' +
+                '<option>&gt=</option>' +
+                '<option>&lt</option>' +
+                '<option>&lt=</option>' +
+                '<option>!=</option>' +
+                '<input type="text" class="form-control" id="templateProperty1_' + indexProperty1 + '_op2">';
+            '</div>';
             indexProperty1++;
+            indexProperty1Conn++;
         }
         $(this).parent().after(destTag);
         $("#" + divId).append($(this));

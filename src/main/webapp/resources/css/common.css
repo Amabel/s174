@@ -57,8 +57,9 @@ div#retDiv {
     cursor: pointer;
 }
 
-.scopeLabel {
-
+div.scopeAfter {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 div.propertyDiv {
@@ -67,6 +68,14 @@ div.propertyDiv {
 
 .addPropertyButton:hover {
     cursor: pointer;
+}
+
+div.property-group-0, div.property-group-1, div.property-group-2 {
+    margin-bottom: 5px;
+}
+
+div.property-group-0.last, div.property-group-1.last {
+    margin-bottom: 20px;
 }
 
 /*div.scope {

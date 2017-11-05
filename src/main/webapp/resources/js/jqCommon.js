@@ -15,7 +15,7 @@ $.generateFormPatternSelection = function() {
         $.each(data.property_patterns, function(key, patterns) {
             $.each(patterns, function(patternName, pattern) {
                 var selectId = "selectPtn" + patternName;
-                var optionTags = "";
+                var optionTags = '<option value="none" hidden></option>\n';
                 for (var i = 0; i < pattern.templates.length; i++) {
                     optionTags += '<option value="' + i + '">' + pattern.templates[i] + '</option>\n';
                 }
@@ -41,6 +41,9 @@ $.addSelectListener = function(selectId, templates) {
     $.resetGlobalVars();
 
     $("#" + selectId).change(function() {
+        var val = $(this).val();
+        $.removeSelects();
+        $(this).val(val);
         $(".templateDiv").remove();
         $("#btnSubmitTemplate").remove();
         $("#btnDownloadTemplate").remove();
@@ -65,12 +68,12 @@ $.showTemplate = function(selectId, template) {
         if (templateArray[i] == "property") {
             tag += '<input type="text" class="form-control" id="templateProperty' + propertyIndex + '_0_op1">' +
                 '<select class="form-control col-md-1 col-sm-1" id="templateProperty' + propertyIndex + '_0_op">' +
-                '<option selected>==</option>' +
-                '<option>&gt</option>' +
-                '<option>&gt=</option>' +
-                '<option>&lt</option>' +
-                '<option>&lt=</option>' +
-                '<option>!=</option>' +
+                '<option selected value="==">==</option>' +
+                '<option value="&gt">&gt</option>' +
+                '<option value="&gt=">&gt=</option>' +
+                '<option value="&lt">&lt</option>' +
+                '<option value="&lt=">&lt=</option>' +
+                '<option value="!=">!=</option>' +
                 '<input type="text" class="form-control" id="templateProperty' + propertyIndex + '_0_op2">';
             propertyIndex++;
         } else if (i > 0 && templateArray[i] != "") {
@@ -92,7 +95,6 @@ $.showTemplate = function(selectId, template) {
             tags += tag;
             tag = "";
         }
-
     }
     // for (var i = 0, j = 0; i < templateArray.length; i++) {
     //     tags += '<div class="input-group" id="propertyGroup' + i + '">';
@@ -130,6 +132,7 @@ $.showTemplate = function(selectId, template) {
         '<button type="button" class="btn btn-primary btnAddScope" id="btnAddScope">Add scope</button>' +
         '</div>';
     $(".templateDiv").prepend(addScopeTag);
+    $.updateTags();
     $.addPropertyButtonListener();
     $.addAddScopeListener();
 }
@@ -142,7 +145,7 @@ $.addAddScopeListener = function() {
         //     '<div>' +
         //     '<input type="text" class="form-control" id="afterScope">' +
         //     '</div></div></div>';
-        var afterScopeTag = '<div class="input-group">' +
+        var afterScopeTag = '<div class="input-group scopeAfter">' +
             '<span class="input-group-addon">After: </span>' +
             '<input type="text" class="form-control" id="tfAfterScope" value="">' +
             '</div>';
@@ -151,7 +154,7 @@ $.addAddScopeListener = function() {
         //     '<div>' +
         //     '<input type="text" class="form-control" id="beforeScope">' +
         //     '</div></div>';
-        var beforeScopeTag = '<div class="input-group">' +
+        var beforeScopeTag = '<div class="input-group scopeBefore">' +
             '<span class="input-group-addon">Before: </span>' +
             '<input type="text" class="form-control" id="tfBeforeScope" value="">' +
             '</div>';
@@ -306,17 +309,17 @@ $.addPropertyButtonListener = function() {
             divId = 'propertyGroup' + btnIndex + '_' + indexProperty0;
             var destTag = '<div class="input-group property-group-0" id="' + divId + '">' +
                 '<select class="form-control col-md-1 col-sm-2 " id="propertyConn' + btnIndex + '_' + indexProperty0Conn + '">' +
-                '<option selected>かつ</option>' +
-                '<option>または</option>' +
+                '<option value="かつ" selected>かつ</option>' +
+                '<option value="または">または</option>' +
                 '</select>' +
                 '<input type="text" class="form-control col-md-5 col-sm-4" id="templateProperty0_' + indexProperty0 + '_op1">' +
                 '<select class="form-control col-md-1 col-sm-1" id="templateProperty0_' + indexProperty0 + '_op">' +
-                '<option selected>==</option>' +
-                '<option>&gt</option>' +
-                '<option>&gt=</option>' +
-                '<option>&lt</option>' +
-                '<option>&lt=</option>' +
-                '<option>!=</option>' +
+                '<option selected value="==">==</option>' +
+                '<option value="&gt">&gt</option>' +
+                '<option value="&gt=">&gt=</option>' +
+                '<option value="&lt">&lt</option>' +
+                '<option value="&lt=">&lt=</option>' +
+                '<option value="!=">!=</option>' +
                 '<input type="text" class="form-control" id="templateProperty0_' + indexProperty0 + '_op2">';
             '</div>';
             indexProperty0++;
@@ -325,17 +328,17 @@ $.addPropertyButtonListener = function() {
             divId = 'propertyGroup' + btnIndex + '_' + indexProperty1;
             var destTag = '<div class="input-group property-group-1" id="' + divId + '">' +
                 '<select class="form-control col-md-1 col-sm-2" id="propertyConn' + btnIndex + '_' + indexProperty1Conn + '">' +
-                '<option selected>かつ</option>' +
-                '<option>または</option>' +
+                '<option value="かつ" selected>かつ</option>' +
+                '<option value="または">または</option>' +
                 '</select>' +
                 '<input type="text" class="form-control col-md-5 col-sm-4" id="templateProperty1_' + indexProperty1 + '_op1">' +
                 '<select class="form-control col-md-1 col-sm-1" id="templateProperty1_' + indexProperty1 + '_op">' +
-                '<option selected>==</option>' +
-                '<option>&gt</option>' +
-                '<option>&gt=</option>' +
-                '<option>&lt</option>' +
-                '<option>&lt=</option>' +
-                '<option>!=</option>' +
+                '<option selected value="==">==</option>' +
+                '<option value="&gt">&gt</option>' +
+                '<option value="&gt=">&gt=</option>' +
+                '<option value="&lt">&lt</option>' +
+                '<option value="&lt=">&lt=</option>' +
+                '<option value="!=">!=</option>' +
                 '<input type="text" class="form-control" id="templateProperty1_' + indexProperty1 + '_op2">';
             '</div>';
             indexProperty1++;
@@ -343,6 +346,7 @@ $.addPropertyButtonListener = function() {
         }
         $(this).parent().after(destTag);
         $("#" + divId).append($(this));
+        $.updateTags();
     });
 }
 
@@ -351,4 +355,25 @@ $.resetGlobalVars = function() {
     indexProperty1 = 0;
     indexProperty0Conn = 0;
     indexProperty1Conn = 0;
+}
+
+$.updateTags = function() {
+    $(".property-group-0").each(function() {
+        $(this).removeClass("last");
+    });
+    $(".property-group-0:last").addClass("last");
+
+    $(".property-group-1").each(function() {
+        $(this).removeClass("last");
+    });
+    $(".property-group-1:last").addClass("last");
+
+    $(".property-group-2").each(function() {
+        $(this).removeClass("last");
+    });
+    $(".property-group-2:last").addClass("last");
+}
+
+$.removeSelects = function() {
+    $("select").val("none");
 }

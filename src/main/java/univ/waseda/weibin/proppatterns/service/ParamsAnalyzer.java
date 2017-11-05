@@ -10,23 +10,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import sun.awt.RepaintArea;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import univ.waseda.weibin.proppatterns.model.Property;
 
 public class ParamsAnalyzer {
 	
 	private Map<String, String> patternMap;
-	private String[] params;
+	private List<Property>[] params;
 	private String[] afters;
 	private String[] befores;
 	private List<String> replacedParams;
 	private List<String> replacedAfters;
 	private List<String> replacedBefores;
+	Logger logger = LogManager.getLogger();
 	
 	public ParamsAnalyzer() {
 		createMap();
 	}
 	
-	public ParamsAnalyzer(String[] params, String[] afters, String[] befores) {
+	public ParamsAnalyzer(List<Property>[] params, String[] afters, String[] befores) {
 		this.params = params;
 		this.afters = afters;
 		this.befores = befores;
@@ -41,17 +45,38 @@ public class ParamsAnalyzer {
 	
 	private void replaceParams() {
 		replacedParams = new ArrayList<String>();
-		for (String str : this.params) {
-			Iterator iterator = patternMap.entrySet().iterator();
-			do {
-				Map.Entry entry = (Map.Entry) iterator.next();
-				String key = (String) entry.getKey();
-				String value = (String) entry.getValue();
-				if (str.contains(key)) {
-					str = str.replace(key, value);
-				}					
-			} while(iterator.hasNext());
-			replacedParams.add(str);
+		for (int i=0; i<params.length; i++) {
+//			replacedParams[i] = new ArrayList<Property>();
+			for (Property property : this.params[i]) { 
+				Iterator iterator = patternMap.entrySet().iterator();
+				do {
+					Map.Entry entry = (Map.Entry) iterator.next();
+					String key = (String) entry.getKey();
+					String value = (String) entry.getValue();
+					String op1 = property.getOp1();
+					String op2 = property.getOp2();
+					if (op1.contains(key)) {
+						property.setOp1(op1.replace(key, value));
+					}	
+					if (op2.contains(key)) {
+						property.setOp2(op2.replace(key, value));
+					}
+				} while(iterator.hasNext());
+//				replacedParams[i].add(property);
+			}
+		}
+		connectParams();
+	}
+	
+	private void connectParams() {
+		// connect each properties with "and / or"
+		for (int i=0; i<params.length; i++) {
+			String rp = "";
+			for (Property property : params[i]) {
+				rp += property.getConnector() + "(" + property.getOp1() + property.getOp() + property.getOp2() + ")";
+			}
+			System.out.println(rp);
+			replacedParams.add(rp);
 		}
 	}
 	

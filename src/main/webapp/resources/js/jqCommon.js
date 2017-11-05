@@ -162,13 +162,46 @@ $.addAddScopeListener = function() {
 }
 
 $.submitTemplate = function(patternName, numProperty) {
-    console.log("pattern name: " + patternName + ", number: " + numProperty);
+    // console.log("pattern name: " + patternName + ", number: " + numProperty);
     // find properties
+    // var params = new Array();
+    // for (var i = 0; i < numProperty; i++) {
+    //     console.log("param " + i + ": " + $("#templateProperty" + i).val());
+    //     params[i] = $("#templateProperty" + i).val();
+    // }
+    // find params
     var params = new Array();
     for (var i = 0; i < numProperty; i++) {
-        console.log("param " + i + ": " + $("#templateProperty" + i).val());
-        params[i] = $("#templateProperty" + i).val();
+        var properties = new Array();
+        var numSubProperty = $(".property-group-" + i).length;
+        console.log("num property-group-" + "i: " + numSubProperty);
+        for (var j = 0; j < numSubProperty; j++) {
+            var property = new Object();
+            var classNameOp1 = "templateProperty" + i + "_" + j + "_op1";
+            var classNameOp = "templateProperty" + i + "_" + j + "_op";
+            var classNameOp2 = "templateProperty" + i + "_" + j + "_op2";
+            property.op1 = $("#" + classNameOp1).val() || "";
+            property.op2 = $("#" + classNameOp2).val() || "";
+            property.op = $("#" + classNameOp).find("option:selected").text() || "";
+            if (j > 0) {
+                var k = j - 1;
+                var id = "propertyConn" + i + "_" + k;
+                var conn = $("#" + id).find("option:selected").text();
+                if (conn == "かつ") {
+                    property.connector = "&&";
+                } else if (conn == "または") {
+                    property.connector = "||";
+                }
+            } else {
+                property.connector = "";
+            }
+            // console.log("j = " + j + ", pp = " + property.op1 + " " + property.op + " " + property.op2);
+            properties.push(property);
+        }
+        params.push(properties);
     }
+
+
     // find scope
     var afters = new Array();
     var befores = new Array();
@@ -180,6 +213,8 @@ $.submitTemplate = function(patternName, numProperty) {
     templateJson.params = params;
     templateJson.afters = afters;
     templateJson.befores = befores;
+
+    console.log(templateJson);
 
 
     // send json
@@ -271,7 +306,7 @@ $.addPropertyButtonListener = function() {
             divId = 'propertyGroup' + btnIndex + '_' + indexProperty0;
             var destTag = '<div class="input-group property-group-0" id="' + divId + '">' +
                 '<select class="form-control col-md-1 col-sm-2 " id="propertyConn' + btnIndex + '_' + indexProperty0Conn + '">' +
-                '<option>かつ</option>' +
+                '<option selected>かつ</option>' +
                 '<option>または</option>' +
                 '</select>' +
                 '<input type="text" class="form-control col-md-5 col-sm-4" id="templateProperty0_' + indexProperty0 + '_op1">' +
@@ -290,7 +325,7 @@ $.addPropertyButtonListener = function() {
             divId = 'propertyGroup' + btnIndex + '_' + indexProperty1;
             var destTag = '<div class="input-group property-group-1" id="' + divId + '">' +
                 '<select class="form-control col-md-1 col-sm-2" id="propertyConn' + btnIndex + '_' + indexProperty1Conn + '">' +
-                '<option>かつ</option>' +
+                '<option selected>かつ</option>' +
                 '<option>または</option>' +
                 '</select>' +
                 '<input type="text" class="form-control col-md-5 col-sm-4" id="templateProperty1_' + indexProperty1 + '_op1">' +

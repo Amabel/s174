@@ -1,9 +1,11 @@
 package univ.waseda.weibin.proppatterns.model;
 
+import java.util.List;
+
 public class PatternTemplate {
 	
 	private String pattern;
-	private String[] params;
+	private List<Property>[] params;
 	private String[] befores;
 	private String[] afters;
 	
@@ -11,7 +13,7 @@ public class PatternTemplate {
 		return pattern;
 	}
 	
-	public String[] getParams() {
+	public List<Property>[] getParams() {
 		return params;
 	}
 	public String[] getBefores() {
@@ -21,26 +23,26 @@ public class PatternTemplate {
 		return afters;
 	}
 	
-	@Override
-	public String toString() {
-		String str = this.pattern + ": ";
-		
-		for (String param : params) {
-			str += param + " ";
-		}
-		
-		str += "\nScope: after: ";
-		for(String af : afters) {
-			str += af + " ";
-		}
-		
-		str += " before: ";
-		for(String be : befores) {
-			str += be + " ";
-		}
-		
-		return str;
-	}
+//	@Override
+//	public String toString() {
+//		String str = this.pattern + ": ";
+//		
+//		for (Property param : params) {
+//			str += param + " ";
+//		}
+//		
+//		str += "\nScope: after: ";
+//		for(String af : afters) {
+//			str += af + " ";
+//		}
+//		
+//		str += " before: ";
+//		for(String be : befores) {
+//			str += be + " ";
+//		}
+//		
+//		return str;
+//	}
 	
 	
 }

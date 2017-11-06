@@ -1,6 +1,7 @@
 package univ.waseda.weibin.proppatterns.service;
 
 import java.io.File;
+import java.util.List;
 
 import com.google.gson.Gson;
 

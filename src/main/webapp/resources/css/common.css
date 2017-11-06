@@ -12,6 +12,19 @@ a:hover {
     color: black;
 }
 
+button#btnHeader {
+    text-decoration: none;
+    color: black;
+    background-color: #fff7af;
+    border-width: 0;
+}
+button#btnHeader:hover {
+    cursor: pointer;
+}
+button#btnHeader:focus {
+    outline: none;
+}
+
 .selectwidthauto
 {
      width:20px !important;
@@ -40,6 +53,7 @@ img#btnDownloadTemplate {
     width: 100px;
     height: 87px;
     background-color: #fff7af;
+
 }
 
 span#btnDownloadTemplate {
@@ -58,7 +72,7 @@ div#retDiv {
 }
 
 div.scopeAfter {
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 20px;
 }
 

@@ -5,6 +5,7 @@ var indexProperty0Conn;
 var indexProperty1Conn;
 
 $(document).ready(function() {
+    $.addBtnHeaderListener();
     $.generateFormPatternSelection();
 });
 
@@ -376,4 +377,15 @@ $.updateTags = function() {
 
 $.removeSelects = function() {
     $("select").val("none");
+}
+
+$.addBtnHeaderListener = function() {
+    $("#btnHeader").click(function() {
+        $.resetGlobalVars();
+        $.removeSelects();
+        $(".templateDiv").remove();
+        $("#btnSubmitTemplate").remove();
+        $("#btnDownloadTemplate").remove();
+        $("#retDiv").remove();
+    });
 }

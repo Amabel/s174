@@ -32,7 +32,7 @@ public class TemplateJsonAnalyzer implements JsonAnalyzer {
 		
 		// pattern, replacedParams
 		// generate pattern graph
-		templateGraphGenerator = new TemplateGraphGenerator(patternTemplate.getPattern(), paramsAnalyzer.getReplacedParams(), paramsAnalyzer.getReplacedAfters().get(0), paramsAnalyzer.getReplacedBefores().get(0));
+		templateGraphGenerator = new TemplateGraphGenerator(patternTemplate.getPattern(), paramsAnalyzer.getReplacedParams(), paramsAnalyzer.getReplacedAfters(), paramsAnalyzer.getReplacedBefores());
 		
 //		String destPath = webInfPath + "/temps/generated-graphs/";
 		

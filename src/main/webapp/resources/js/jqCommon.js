@@ -292,6 +292,15 @@ $.submitTemplate = function(patternName, numProperty) {
 
     // find after
     var numScopeAfter = $("div.scope-after").length;
+    console.log(numScopeAfter);
+    if (numScopeAfter == 0) {
+        var after = new Object();
+        after.op1 = "";
+        after.op2 = "";
+        after.op = "";
+        after.connector = "";
+        afters.push(after);
+    }
     for (var i = 0; i < numScopeAfter; i++) {
         var after = new Object();
         var idOp1 = "tfAfterScope" + i + "_op1";
@@ -317,6 +326,14 @@ $.submitTemplate = function(patternName, numProperty) {
 
     //fing before
     var numScopeBefore = $("div.scope-before").length;
+    if (numScopeBefore == 0) {
+        var before = new Object();
+        before.op1 = "";
+        before.op2 = "";
+        before.op = "";
+        before.connector = "";
+        befores.push(before);
+    }
     for (var i = 0; i < numScopeBefore; i++) {
         var before = new Object();
         var idOp1 = "tfBeforeScope" + i + "_op1";

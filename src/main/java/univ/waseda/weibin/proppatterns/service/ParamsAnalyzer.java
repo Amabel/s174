@@ -22,8 +22,8 @@ public class ParamsAnalyzer {
 	private List<Property> afters;
 	private List<Property> befores;
 	private List<String> replacedParams;
-	private List<String> replacedAfters;
-	private List<String> replacedBefores;
+	private String replacedAfters;
+	private String replacedBefores;
 	Logger logger = LogManager.getLogger();
 	
 	public ParamsAnalyzer() {
@@ -80,32 +80,42 @@ public class ParamsAnalyzer {
 		}
 	}
 	
-	private void connectAfters(List<Property> properties) {
+	private void connectAfters() {
 		// connect each properties with "and / or"
-		for (int i=0; i<properties.size(); i++) {
-			String rp = "";
-			for (Property property : properties) {
-				rp += property.getConnector() + "(" + property.getOp1() + property.getOp() + property.getOp2() + ")";
+		Property after0 = afters.get(0);
+		if (after0.getOp().equals("") && after0.getOp1().equals("") && after0.getOp2().equals("")) {
+			replacedAfters = "";
+		} else {
+			for (int i=0; i<afters.size(); i++) {
+				String rp = "";
+				for (Property property : afters) {
+					rp += property.getConnector() + "(" + property.getOp1() + property.getOp() + property.getOp2() + ")";
+				}
+				System.out.println(rp);
+				replacedAfters = rp;
 			}
-			System.out.println(rp);
-			replacedAfters.add(rp);
 		}
 	}
 	
-	private void connectBefores(List<Property> properties) {
+	private void connectBefores() {
 		// connect each properties with "and / or"
-		for (int i=0; i<properties.size(); i++) {
-			String rp = "";
-			for (Property property : properties) {
-				rp += property.getConnector() + "(" + property.getOp1() + property.getOp() + property.getOp2() + ")";
+		Property before0 = befores.get(0);
+		if (before0.getOp().equals("") && before0.getOp1().equals("") && before0.getOp2().equals("")) {
+			replacedBefores = "";
+		} else {
+			for (int i=0; i<befores.size(); i++) {
+				String rp = "";
+				for (Property property : befores) {
+					rp += property.getConnector() + "(" + property.getOp1() + property.getOp() + property.getOp2() + ")";
+				}
+				System.out.println(rp);
+				replacedBefores = rp;
 			}
-			System.out.println(rp);
-			replacedBefores.add(rp);
 		}
 	}
 	
 	private void replaceAfters() {
-		replacedAfters = new ArrayList<String>();
+		replacedAfters = "";
 		for (Property property : this.afters) {
 			Iterator iterator = patternMap.entrySet().iterator();
 			do {
@@ -122,11 +132,11 @@ public class ParamsAnalyzer {
 				}					
 			} while(iterator.hasNext());
 		}
-		connectAfters(afters);
+		connectAfters();
 	}
 	
 	private void replaceBefores() {
-		replacedBefores = new ArrayList<String>();
+		replacedBefores = "";
 		for (Property property : this.befores) {
 			Iterator iterator = patternMap.entrySet().iterator();
 			do {
@@ -143,7 +153,7 @@ public class ParamsAnalyzer {
 				}					
 			} while(iterator.hasNext());
 		}
-		connectBefores(befores);
+		connectBefores();
 	}
 	
 	private void createMap() {
@@ -172,11 +182,11 @@ public class ParamsAnalyzer {
 		return replacedParams;
 	}
 
-	public List<String> getReplacedAfters() {
+	public String getReplacedAfters() {
 		return replacedAfters;
 	}
 
-	public List<String> getReplacedBefores() {
+	public String getReplacedBefores() {
 		return replacedBefores;
 	}
 

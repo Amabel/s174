@@ -3,6 +3,10 @@ var indexProperty0;
 var indexProperty1;
 var indexProperty0Conn;
 var indexProperty1Conn;
+var indexAfter;
+var indexBefore;
+var indexAfterConn;
+var indexBeforeConn;
 
 $(document).ready(function() {
     $.addBtnHeaderListener();
@@ -69,12 +73,13 @@ $.showTemplate = function(selectId, template) {
         if (templateArray[i] == "property") {
             tag += '<input type="text" class="form-control" id="templateProperty' + propertyIndex + '_0_op1">' +
                 '<select class="form-control col-md-1 col-sm-1" id="templateProperty' + propertyIndex + '_0_op">' +
-                '<option selected value="==">==</option>' +
+                '<option selected value=""></option>' +
+                '<option value="==">=</option>' +
                 '<option value="&gt">&gt</option>' +
-                '<option value="&gt=">&gt=</option>' +
+                '<option value="&gt=">≧</option>' +
                 '<option value="&lt">&lt</option>' +
-                '<option value="&lt=">&lt=</option>' +
-                '<option value="!=">!=</option>' +
+                '<option value="&lt=">≦</option>' +
+                '<option value="!=">≠</option>' +
                 '<input type="text" class="form-control" id="templateProperty' + propertyIndex + '_0_op2">';
             propertyIndex++;
         } else if (i > 0 && templateArray[i] != "") {
@@ -146,22 +151,95 @@ $.addAddScopeListener = function() {
         //     '<div>' +
         //     '<input type="text" class="form-control" id="afterScope">' +
         //     '</div></div></div>';
-        var afterScopeTag = '<div class="input-group scopeAfter">' +
-            '<span class="input-group-addon">After: </span>' +
-            '<input type="text" class="form-control" id="tfAfterScope" value="">' +
+        var afterScopeTag = '<div class="scopeAfter">' +
+            '<div class="input-group scope-after" id="scpoeAfter' + indexAfter + '">' +
+            '<span class="input-group-addon" id="btnAddAfter">After: </span>' +
+            '<input type="text" class="form-control" id="tfAfterScope' + indexAfter + '_op1" value="">' +
+            '<select class="form-control col-md-1 col-sm-1" id="tfAfterScope' + indexAfter + '_op">' +
+            '<option selected value=""></option>' +
+            '<option value="==">=</option>' +
+            '<option value="&gt">&gt</option>' +
+            '<option value="&gt=">≧</option>' +
+            '<option value="&lt">&lt</option>' +
+            '<option value="&lt=">≦</option>' +
+            '<option value="!=">≠</option>' +
+            '<input type="text" class="form-control" id="tfAfterScope' + indexAfter + '_op2" value="">' +
+            '</div>' +
             '</div>';
+        indexAfter++;
         // var beforeScopeTag = '<div class="form-group" id="divBeforeScope">' +
         //     '<label for="beforeScope" class="control-label">Before: </label>' +
         //     '<div>' +
         //     '<input type="text" class="form-control" id="beforeScope">' +
         //     '</div></div>';
-        var beforeScopeTag = '<div class="input-group scopeBefore">' +
-            '<span class="input-group-addon">Before: </span>' +
-            '<input type="text" class="form-control" id="tfBeforeScope" value="">' +
+        var beforeScopeTag = '<div class="scopeBefore">' +
+            '<div class="input-group scope-before" id="scopeBefore' + indexBefore + '">' +
+            '<span class="input-group-addon" id="btnAddBefore">Before: </span>' +
+            '<input type="text" class="form-control" id="tfBeforeScope' + indexBefore + '_op1" value="">' +
+            '<select class="form-control col-md-1 col-sm-1" id="tfBeforeScope' + indexBefore + '_op">' +
+            '<option selected value=""></option>' +
+            '<option value="==">=</option>' +
+            '<option value="&gt">&gt</option>' +
+            '<option value="&gt=">≧</option>' +
+            '<option value="&lt">&lt</option>' +
+            '<option value="&lt=">≦</option>' +
+            '<option value="!=">≠</option>' +
+            '<input type="text" class="form-control" id="tfBeforeScope' + indexBefore + '_op2" value="">' +
+            '</div>' +
             '</div>';
+        indexBefore++;
         $(".templateDiv").prepend(afterScopeTag);
         $(".templateDiv").append(beforeScopeTag);
         $("#btnAddScope").parent().remove();
+        $.addScopeButtonListener();
+    });
+}
+
+$.addScopeButtonListener = function() {
+    $("#btnAddAfter").click(function() {
+        divId = 'scopeAfter' + indexAfter;
+        var destTag = '<div class="input-group scope-after" id="' + divId + '">' +
+            '<select class="form-control col-md-1 col-sm-2 " id="scopeAfterConn' + indexAfterConn + '">' +
+            '<option value="かつ" selected>かつ</option>' +
+            '<option value="または">または</option>' +
+            '</select>' +
+            '<input type="text" class="form-control col-md-5 col-sm-4" id="tfAfterScope' + indexAfter + '_op1">' +
+            '<select class="form-control col-md-1 col-sm-1" id="tfAfterScope' + indexAfter + '_op">' +
+            '<option selected value=""></option>' +
+            '<option value="==">=</option>' +
+            '<option value="&gt">&gt</option>' +
+            '<option value="&gt=">≧</option>' +
+            '<option value="&lt">&lt</option>' +
+            '<option value="&lt=">≦</option>' +
+            '<option value="!=">≠</option>' +
+            '<input type="text" class="form-control" id="tfAfterScope' + indexAfter + '_op2">';
+        '</div>';
+        indexAfter++;
+        indexAfterConn++;
+        $("div.scopeAfter").append(destTag);
+    });
+
+    $("#btnAddBefore").click(function() {
+        divId = 'scopeAfter' + indexBefore;
+        var destTag = '<div class="input-group scope-before" id="' + divId + '">' +
+            '<select class="form-control col-md-1 col-sm-2 " id="scopeBeforeConn' + indexBeforeConn + '">' +
+            '<option value="かつ" selected>かつ</option>' +
+            '<option value="または">または</option>' +
+            '</select>' +
+            '<input type="text" class="form-control col-md-5 col-sm-4" id="tfBeforeScope' + indexBefore + '_op1">' +
+            '<select class="form-control col-md-1 col-sm-1" id="tfBeforeScope' + indexBefore + '_op">' +
+            '<option selected value=""></option>' +
+            '<option value="==">=</option>' +
+            '<option value="&gt">&gt</option>' +
+            '<option value="&gt=">≧</option>' +
+            '<option value="&lt">&lt</option>' +
+            '<option value="&lt=">≦</option>' +
+            '<option value="!=">≠</option>' +
+            '<input type="text" class="form-control" id="tfBeforeScope' + indexBefore + '_op2">';
+        '</div>';
+        indexBefore++;
+        indexBeforeConn++;
+        $("div.scopeBefore").append(destTag);
     });
 }
 
@@ -186,7 +264,7 @@ $.submitTemplate = function(patternName, numProperty) {
             var classNameOp2 = "templateProperty" + i + "_" + j + "_op2";
             property.op1 = $("#" + classNameOp1).val() || "";
             property.op2 = $("#" + classNameOp2).val() || "";
-            property.op = $("#" + classNameOp).find("option:selected").text() || "";
+            property.op = $("#" + classNameOp).val() || "";
             if (j > 0) {
                 var k = j - 1;
                 var id = "propertyConn" + i + "_" + k;
@@ -209,8 +287,59 @@ $.submitTemplate = function(patternName, numProperty) {
     // find scope
     var afters = new Array();
     var befores = new Array();
-    afters[0] = $("#tfAfterScope").val() || "";
-    befores[0] = $("#tfBeforeScope").val() || "";
+    // afters[0] = $("#tfAfterScope").val() || "";
+    // befores[0] = $("#tfBeforeScope").val() || "";
+
+    // find after
+    var numScopeAfter = $("div.scope-after").length;
+    for (var i = 0; i < numScopeAfter; i++) {
+        var after = new Object();
+        var idOp1 = "tfAfterScope" + i + "_op1";
+        var idOp = "tfAfterScope" + i + "_op";
+        var idOp2 = "tfAfterScope" + i + "_op2";
+        after.op1 = $("#" + idOp1).val() || "";
+        after.op2 = $("#" + idOp2).val() || "";
+        after.op = $("#" + idOp).val() || "";
+        if (i > 0) {
+            var j = i - 1;
+            var id = "scopeAfterConn" + j;
+            var conn = $("#" + id).find("option:selected").text();
+            if (conn == "かつ") {
+                after.connector = "&&";
+            } else if (conn == "または") {
+                after.connector = "||";
+            }
+        } else {
+            after.connector = "";
+        }
+        afters.push(after);
+    }
+
+    //fing before
+    var numScopeBefore = $("div.scope-before").length;
+    for (var i = 0; i < numScopeBefore; i++) {
+        var before = new Object();
+        var idOp1 = "tfBeforeScope" + i + "_op1";
+        var idOp = "tfBeforeScope" + i + "_op";
+        var idOp2 = "tfBeforeScope" + i + "_op2";
+        before.op1 = $("#" + idOp1).val() || "";
+        before.op2 = $("#" + idOp2).val() || "";
+        before.op = $("#" + idOp).val() || "";
+        if (i > 0) {
+            var j = i - 1;
+            var id = "scopeBeforeConn" + j;
+            var conn = $("#" + id).find("option:selected").text();
+            if (conn == "かつ") {
+                before.connector = "&&";
+            } else if (conn == "または") {
+                before.connector = "||";
+            }
+        } else {
+            before.connector = "";
+        }
+        befores.push(before);
+    }
+
     // new json
     var templateJson = new Object();
     templateJson.pattern = patternName;
@@ -315,12 +444,13 @@ $.addPropertyButtonListener = function() {
                 '</select>' +
                 '<input type="text" class="form-control col-md-5 col-sm-4" id="templateProperty0_' + indexProperty0 + '_op1">' +
                 '<select class="form-control col-md-1 col-sm-1" id="templateProperty0_' + indexProperty0 + '_op">' +
-                '<option selected value="==">==</option>' +
+                '<option selected value=""></option>' +
+                '<option value="==">=</option>' +
                 '<option value="&gt">&gt</option>' +
-                '<option value="&gt=">&gt=</option>' +
+                '<option value="&gt=">≧</option>' +
                 '<option value="&lt">&lt</option>' +
-                '<option value="&lt=">&lt=</option>' +
-                '<option value="!=">!=</option>' +
+                '<option value="&lt=">≦</option>' +
+                '<option value="!=">≠</option>' +
                 '<input type="text" class="form-control" id="templateProperty0_' + indexProperty0 + '_op2">';
             '</div>';
             indexProperty0++;
@@ -334,12 +464,13 @@ $.addPropertyButtonListener = function() {
                 '</select>' +
                 '<input type="text" class="form-control col-md-5 col-sm-4" id="templateProperty1_' + indexProperty1 + '_op1">' +
                 '<select class="form-control col-md-1 col-sm-1" id="templateProperty1_' + indexProperty1 + '_op">' +
-                '<option selected value="==">==</option>' +
+                '<option selected value=""></option>' +
+                '<option value="==">=</option>' +
                 '<option value="&gt">&gt</option>' +
-                '<option value="&gt=">&gt=</option>' +
+                '<option value="&gt=">≧</option>' +
                 '<option value="&lt">&lt</option>' +
-                '<option value="&lt=">&lt=</option>' +
-                '<option value="!=">!=</option>' +
+                '<option value="&lt=">≦</option>' +
+                '<option value="!=">≠</option>' +
                 '<input type="text" class="form-control" id="templateProperty1_' + indexProperty1 + '_op2">';
             '</div>';
             indexProperty1++;
@@ -356,6 +487,10 @@ $.resetGlobalVars = function() {
     indexProperty1 = 0;
     indexProperty0Conn = 0;
     indexProperty1Conn = 0;
+    indexAfter = 0;
+    indexBefore = 0;
+    indexAfterConn = 0;
+    indexBeforeConn = 0;
 }
 
 $.updateTags = function() {

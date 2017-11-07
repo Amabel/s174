@@ -19,8 +19,8 @@ public class ParamsAnalyzer {
 	
 	private Map<String, String> patternMap;
 	private List<Property>[] params;
-	private String[] afters;
-	private String[] befores;
+	private List<Property> afters;
+	private List<Property> befores;
 	private List<String> replacedParams;
 	private List<String> replacedAfters;
 	private List<String> replacedBefores;
@@ -30,7 +30,7 @@ public class ParamsAnalyzer {
 		createMap();
 	}
 	
-	public ParamsAnalyzer(List<Property>[] params, String[] afters, String[] befores) {
+	public ParamsAnalyzer(List<Property>[] params, List<Property> afters, List<Property> befores) {
 		this.params = params;
 		this.afters = afters;
 		this.befores = befores;
@@ -80,36 +80,70 @@ public class ParamsAnalyzer {
 		}
 	}
 	
+	private void connectAfters(List<Property> properties) {
+		// connect each properties with "and / or"
+		for (int i=0; i<properties.size(); i++) {
+			String rp = "";
+			for (Property property : properties) {
+				rp += property.getConnector() + "(" + property.getOp1() + property.getOp() + property.getOp2() + ")";
+			}
+			System.out.println(rp);
+			replacedAfters.add(rp);
+		}
+	}
+	
+	private void connectBefores(List<Property> properties) {
+		// connect each properties with "and / or"
+		for (int i=0; i<properties.size(); i++) {
+			String rp = "";
+			for (Property property : properties) {
+				rp += property.getConnector() + "(" + property.getOp1() + property.getOp() + property.getOp2() + ")";
+			}
+			System.out.println(rp);
+			replacedBefores.add(rp);
+		}
+	}
+	
 	private void replaceAfters() {
 		replacedAfters = new ArrayList<String>();
-		for (String str : this.afters) {
+		for (Property property : this.afters) {
 			Iterator iterator = patternMap.entrySet().iterator();
 			do {
 				Map.Entry entry = (Map.Entry) iterator.next();
 				String key = (String) entry.getKey();
 				String value = (String) entry.getValue();
-				if (str.contains(key)) {
-					str = str.replace(key, value);
+				String op1 = property.getOp1();
+				String op2 = property.getOp2();
+				if (op1.contains(key)) {
+					property.setOp1(op1.replace(key, value));
+				}	
+				if (op2.contains(key)) {
+					property.setOp2(op2.replace(key, value));
 				}					
 			} while(iterator.hasNext());
-			replacedAfters.add(str);
 		}
+		connectAfters(afters);
 	}
 	
 	private void replaceBefores() {
 		replacedBefores = new ArrayList<String>();
-		for (String str : this.befores) {
+		for (Property property : this.befores) {
 			Iterator iterator = patternMap.entrySet().iterator();
 			do {
 				Map.Entry entry = (Map.Entry) iterator.next();
 				String key = (String) entry.getKey();
 				String value = (String) entry.getValue();
-				if (str.contains(key)) {
-					str = str.replace(key, value);
+				String op1 = property.getOp1();
+				String op2 = property.getOp2();
+				if (op1.contains(key)) {
+					property.setOp1(op1.replace(key, value));
+				}	
+				if (op2.contains(key)) {
+					property.setOp2(op2.replace(key, value));
 				}					
 			} while(iterator.hasNext());
-			replacedBefores.add(str);
 		}
+		connectBefores(befores);
 	}
 	
 	private void createMap() {

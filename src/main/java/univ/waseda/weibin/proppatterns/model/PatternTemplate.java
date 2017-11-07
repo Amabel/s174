@@ -6,8 +6,8 @@ public class PatternTemplate {
 	
 	private String pattern;
 	private List<Property>[] params;
-	private String[] befores;
-	private String[] afters;
+	private List<Property> befores;
+	private List<Property> afters;
 	
 	public String getPattern() {
 		return pattern;
@@ -16,10 +16,10 @@ public class PatternTemplate {
 	public List<Property>[] getParams() {
 		return params;
 	}
-	public String[] getBefores() {
+	public List<Property> getBefores() {
 		return befores;
 	}
-	public String[] getAfters() {
+	public List<Property> getAfters() {
 		return afters;
 	}
 	

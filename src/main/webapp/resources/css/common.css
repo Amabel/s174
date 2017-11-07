@@ -88,6 +88,15 @@ div.propertyDiv {
     cursor: pointer;
 }
 
+#btnUploadXML {
+    float: right;
+    margin-top: 18px;
+}
+
+div##ltlResults {
+    margin-top: 10px;
+}
+
 div.property-group-0, div.property-group-1, div.property-group-2 {
     margin-bottom: 5px;
 }

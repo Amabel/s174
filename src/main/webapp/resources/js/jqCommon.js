@@ -9,6 +9,47 @@ var indexAfterConn;
 var indexBeforeConn;
 
 $(document).ready(function() {
+
+    // $("#fileInput").fileinput({
+    //     showCaption: false,
+    //     uploadUrl: 'upload', // you must set a valid URL here else you will get an error
+    //     allowedFileExtensions: ['z151'],
+    //});
+
+
+    $("#fileInput").fileinput({
+        showPreview: false,
+        showUpload: false,
+        maxFileSize: 300,
+        elErrorContainer: '#kartik-file-errors',
+        allowedFileExtensions: ["z151", "png"],
+        uploadUrl: 'upload'
+    });
+
+    $('#fileInput').on('fileuploaded', function(event, data, previewId, index) {
+        console.log(data);
+        var ltlFormulaTag = '<span id="LTLFormula">' +
+            "LTLFormula: <br>" +
+            "pattern: " + data.response.ltl.pattern + "<br>" +
+            "scope: " + data.response.ltl.scope + "<br>" +
+            "ltl: " + data.response.ltl.formula + "<br>" +
+            "</span>";
+        $("#ltlResults").append(ltlFormulaTag);
+    });
+
+    $("#closeModal").click(function() {
+        $("#ltlResults").empty();
+        // $("#fileInput").fileinput('remove');
+    });
+
+    $("#fileInput").on("fileuploaderror", function(event, data, previewId, index) {
+        console.log("error");
+    });
+
+    $("#uploadXML").click(function() {
+        $("#fileInput").fileinput('upload');
+    })
+
     $.addBtnHeaderListener();
     $.generateFormPatternSelection();
 });

@@ -31,6 +31,15 @@
         <servlet-name>DownloadTemplateServlet</servlet-name>
         <url-pattern>/download/graph-template</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+	    <servlet-name>UploadXMLServlet</servlet-name>
+	    <servlet-class>univ.waseda.weibin.proppatterns.controller.UploadXMLServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UploadXMLServlet</servlet-name>
+        <url-pattern>/upload</url-pattern>
+    </servlet-mapping>
 
     <!-- log4j2-begin -->
 	<listener>

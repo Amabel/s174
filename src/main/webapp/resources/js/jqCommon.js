@@ -47,6 +47,7 @@ $(document).ready(function() {
     });
 
     $("#uploadXML").click(function() {
+        $("#ltlResults").empty();
         $("#fileInput").fileinput('upload');
     })
 

@@ -27,7 +27,7 @@ $(document).ready(function() {
     });
 
     $('#fileInput').on('fileuploaded', function(event, data, previewId, index) {
-        console.log(data);
+        // console.log(data);
         var ltlFormulaTag = '<span id="LTLFormula">' +
             "LTLFormula: <br>" +
             "pattern: " + data.response.ltl.pattern + "<br>" +
@@ -39,7 +39,7 @@ $(document).ready(function() {
 
     $("#closeModal").click(function() {
         $("#ltlResults").empty();
-        // $("#fileInput").fileinput('remove');
+        $("#fileInput").fileinput('clear');
     });
 
     $("#fileInput").on("fileuploaderror", function(event, data, previewId, index) {
@@ -297,7 +297,7 @@ $.submitTemplate = function(patternName, numProperty) {
     for (var i = 0; i < numProperty; i++) {
         var properties = new Array();
         var numSubProperty = $(".property-group-" + i).length;
-        console.log("num property-group-" + "i: " + numSubProperty);
+        // console.log("num property-group-" + "i: " + numSubProperty);
         for (var j = 0; j < numSubProperty; j++) {
             var property = new Object();
             var classNameOp1 = "templateProperty" + i + "_" + j + "_op1";
@@ -333,7 +333,7 @@ $.submitTemplate = function(patternName, numProperty) {
 
     // find after
     var numScopeAfter = $("div.scope-after").length;
-    console.log(numScopeAfter);
+    // console.log(numScopeAfter);
     if (numScopeAfter == 0) {
         var after = new Object();
         after.op1 = "";
@@ -405,7 +405,7 @@ $.submitTemplate = function(patternName, numProperty) {
     templateJson.afters = afters;
     templateJson.befores = befores;
 
-    console.log(templateJson);
+    // console.log(templateJson);
 
 
     // send json
@@ -419,7 +419,7 @@ $.submitTemplate = function(patternName, numProperty) {
         success: function(data) {
             // alert("success");
             retJson = JSON.parse(data);
-            console.log(retJson);
+            // console.log(retJson);
             graphTemppateFilePath = retJson.graphTemplateFileName;
             $.showDownloadButton();
             $.showLTLFormula(retJson.ltl);

@@ -93,8 +93,9 @@ div.propertyDiv {
     margin-top: 18px;
 }
 
-div##ltlResults {
+div#ltlResults {
     margin-top: 10px;
+    margin-left: 5px;
 }
 
 div.property-group-0, div.property-group-1, div.property-group-2 {

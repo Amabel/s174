@@ -176,23 +176,58 @@ $.showTemplate = function(selectId, template) {
         var patternName = selectId.substr(9);
         $.submitTemplate(patternName, propertyIndex);
     });
-    var addScopeTag = '<div>' +
-        '<button type="button" class="btn btn-primary btnAddScope" id="btnAddScope">Add scope</button>' +
-        '</div>';
-    $(".templateDiv").prepend(addScopeTag);
+    // var addScopeTag = '<div>' +
+    //     '<button type="button" class="btn btn-primary btnAddScope" id="btnAddScope">Add scope</button>' +
+    //     '</div>';
+    // $(".templateDiv").prepend(addScopeTag);
     $.updateTags();
     $.addPropertyButtonListener();
-    $.addAddScopeListener();
+    // $.addAddScopeListener();
+    $.addScopeTemplate();
+
+}
+
+$.addScopeTemplate = function() {
+    var afterScopeTag = '<div class="scopeAfter">' +
+        '<div class="input-group scope-after" id="scpoeAfter' + indexAfter + '">' +
+        '<span class="input-group-addon" id="btnAddAfter">After: </span>' +
+        '<input type="text" class="form-control" id="tfAfterScope' + indexAfter + '_op1" value="">' +
+        '<select class="form-control col-md-1 col-sm-1" id="tfAfterScope' + indexAfter + '_op">' +
+        '<option selected value=""></option>' +
+        '<option value="==">=</option>' +
+        '<option value="&gt">&gt</option>' +
+        '<option value="&gt=">≧</option>' +
+        '<option value="&lt">&lt</option>' +
+        '<option value="&lt=">≦</option>' +
+        '<option value="!=">≠</option>' +
+        '<input type="text" class="form-control" id="tfAfterScope' + indexAfter + '_op2" value="">' +
+        '</div>' +
+        '</div>';
+    indexAfter++;
+    var beforeScopeTag = '<div class="scopeBefore">' +
+        '<div class="input-group scope-before" id="scopeBefore' + indexBefore + '">' +
+        '<span class="input-group-addon" id="btnAddBefore">Before: </span>' +
+        '<input type="text" class="form-control" id="tfBeforeScope' + indexBefore + '_op1" value="">' +
+        '<select class="form-control col-md-1 col-sm-1" id="tfBeforeScope' + indexBefore + '_op">' +
+        '<option selected value=""></option>' +
+        '<option value="==">=</option>' +
+        '<option value="&gt">&gt</option>' +
+        '<option value="&gt=">≧</option>' +
+        '<option value="&lt">&lt</option>' +
+        '<option value="&lt=">≦</option>' +
+        '<option value="!=">≠</option>' +
+        '<input type="text" class="form-control" id="tfBeforeScope' + indexBefore + '_op2" value="">' +
+        '</div>' +
+        '</div>';
+    indexBefore++;
+    $(".templateDiv").prepend(afterScopeTag);
+    $(".templateDiv").append(beforeScopeTag);
+    $("#btnAddScope").parent().remove();
+    $.addScopeButtonListener();
 }
 
 $.addAddScopeListener = function() {
     $("#btnAddScope").click(function() {
-        // var afterScopeTag = '<div>' +
-        //     '<div class="form-group" id="divAfterScpoe">' +
-        //     '<label class="scopeLabel control-label" for="afterScope">After: </label>' +
-        //     '<div>' +
-        //     '<input type="text" class="form-control" id="afterScope">' +
-        //     '</div></div></div>';
         var afterScopeTag = '<div class="scopeAfter">' +
             '<div class="input-group scope-after" id="scpoeAfter' + indexAfter + '">' +
             '<span class="input-group-addon" id="btnAddAfter">After: </span>' +

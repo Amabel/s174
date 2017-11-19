@@ -73,7 +73,11 @@ public class ParamsAnalyzer {
 		for (int i=0; i<params.length; i++) {
 			String rp = "";
 			for (Property property : params[i]) {
-				rp += property.getConnector() + "(" + property.getOp1() + property.getOp() + property.getOp2() + ")";
+				if (property.getConnector().equals("")) {
+					rp += property.getOp1() + property.getOp() + property.getOp2();
+				} else {
+					rp += property.getConnector() + "(" + property.getOp1() + property.getOp() + property.getOp2() + ")";					
+				}
 			}
 			System.out.println(rp);
 			replacedParams.add(rp);
@@ -89,7 +93,11 @@ public class ParamsAnalyzer {
 			for (int i=0; i<afters.size(); i++) {
 				String rp = "";
 				for (Property property : afters) {
-					rp += property.getConnector() + "(" + property.getOp1() + property.getOp() + property.getOp2() + ")";
+					if (property.getConnector().equals("")) {
+						rp += property.getOp1() + property.getOp() + property.getOp2();
+					} else {
+						rp += property.getConnector() + "(" + property.getOp1() + property.getOp() + property.getOp2() + ")";						
+					}
 				}
 				System.out.println(rp);
 				replacedAfters = rp;
@@ -106,7 +114,11 @@ public class ParamsAnalyzer {
 			for (int i=0; i<befores.size(); i++) {
 				String rp = "";
 				for (Property property : befores) {
-					rp += property.getConnector() + "(" + property.getOp1() + property.getOp() + property.getOp2() + ")";
+					if (property.getConnector().equals("")) {
+						rp += property.getOp1() + property.getOp() + property.getOp2();
+					} else {
+						rp += property.getConnector() + "(" + property.getOp1() + property.getOp() + property.getOp2() + ")";						
+					}
 				}
 				System.out.println(rp);
 				replacedBefores = rp;

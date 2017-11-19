@@ -55,7 +55,130 @@ $(document).ready(function() {
     $.generateFormPatternSelection();
 });
 
+$.showScopeSelection = function() {
+    var scopeSelectionTag = '<label>スコープのキーワード選択</label>' +
+        '<select class="form-control" id="scopeSelect">' +
+        '<option value="global" selected>どんなときでも、</option>' +
+        '<option value="after">〇〇の後で、</option>' +
+        '<option value="before">〇〇の前に</option>' +
+        '<option value="between">〇〇から〇〇の間で、</option>' +
+        '</select>';
+    $("#scopeSelection").append(scopeSelectionTag);
+}
+
 $.generateFormPatternSelection = function() {
+    var uniqueMode = true;
+    if (uniqueMode == true) {
+        $.showScopeSelection();
+        $.generateUniquePatternSelection();
+    } else {
+        $.generateSeparatePatternSelection();
+    }
+}
+
+$.generateUniquePatternSelection = function() {
+    // $("#formPatternSelection").removeAttr("hidden");
+
+    // var propertyPatternJson = $.construcuJsonObject();
+
+    // $.showPatternSelection(propertyPatternJson);
+
+    $.loadJsonAndAddDivs();
+}
+
+$.showPatternSelection = function(propertyPatternJson) {
+    var optionTags = '<option value="none" selected hidden></option>\n';
+
+    $.getJSON("resources/common/patterns.json", function(data) {
+        $.each(data.property_patterns, function(key, patterns) {
+            $.each(patterns, function(patternName, pattern) {
+                for (var i = 0; i < pattern.templates.length; i++) {
+                    optionTags += '<option>' + pattern.templates[i] + '</option>\n';
+                }
+            });
+
+        });
+    });
+
+    var selectTag = '<div class="form-group">' +
+        '<label for="patternSelect">パターンのキーワード選択</label><br>' +
+        '<select class="form-control" name="patternSelect" id="patternSelect">' +
+        optionTags +
+        '</select>' +
+        '</div>';
+
+    $("#patternSelection").append(selectTag);
+}
+
+$.construcuJsonObject = function() {
+    var propertyPatternJson = new Array();
+
+    // construct json object
+    $.getJSON("resources/common/patterns.json", function(data) {
+        $.each(data.property_patterns, function(key, patterns) {
+            $.each(patterns, function(patternName, pattern) {
+                var propertyPattern = new Object();
+                propertyPattern.patternName = patternName;
+                propertyPattern.name = pattern.name;
+                propertyPattern.intent = pattern.intent;
+                propertyPattern.templates = pattern.templates;
+                // propertyPatternJson.push(propertyPattern);
+                propertyPatternJson[key] = propertyPattern;
+            });
+        });
+    });
+    console.log(propertyPatternJson);
+    return propertyPatternJson;
+}
+
+$.loadJsonAndAddDivs = function() {
+    // load json and add divs
+    var optionTags = '<option selected value="none" hidden></option>';
+    var templates = new Array();
+    $.getJSON("resources/common/patterns.json", function(data) {
+        var j = 0;
+        $.each(data.property_patterns, function(key, patterns) {
+            $.each(patterns, function(patternName, pattern) {
+                // var selectId = "selectPtn" + patternName;
+                for (var i = 0; i < pattern.templates.length; i++) {
+                    optionTags += '<option value="' + j + '">' + pattern.templates[i] + '</option>\n';
+                    j++;
+                    templates.push(pattern.templates[i]);
+                }
+            });
+        });
+        $("#patternSelection").append(
+            '<div class="form-group">' +
+            '<label for="patternSelect">パターンのキーワード選択</label><br>' +
+            '<select class="form-control" name="pattern-select" id="patternSelect">' +
+            optionTags +
+            '</select>' +
+            '</div>'
+        );
+        var selectId = "patternSelect";
+        $("#" + selectId).val([]);
+        $.addUniqueSelectListener(selectId, templates);
+    });
+}
+
+$.addUniqueSelectListener = function(selectId, templates) {
+    // reset params
+    $.resetGlobalVars();
+    $("#" + selectId).change(function() {
+        var val = $(this).val();
+        $.removeSelects();
+        $(this).val(val);
+        $(".templateDiv").remove();
+        $("#btnSubmitTemplate").remove();
+        $("#btnDownloadTemplate").remove();
+        $("#retDiv").remove();
+        var optText = $(this).children('option:selected').text();
+        console.log(optText);
+        $.showTemplate(selectId, optText);
+    });
+}
+
+$.generateSeparatePatternSelection = function() {
     $("#formPatternSelection").removeAttr("hidden");
     // load json and add divs
     $.getJSON("resources/common/patterns.json", function(data) {
@@ -173,8 +296,25 @@ $.showTemplate = function(selectId, template) {
     $(".templateDiv").fadeIn();
     $("#btnSubmitTemplate").fadeIn();
     $("#btnSubmitTemplate").click(function() {
-        var patternName = selectId.substr(9);
-        $.submitTemplate(patternName, propertyIndex);
+        // var patternName = selectId.substr(9);
+        $.getJSON("resources/common/patterns.json").done(function(data) {
+            var proppattern = "";
+            var selectedTemplate = $("#patternSelect").find("option:selected").text();
+            $.each(data.property_patterns, function(key, patterns) {
+                $.each(patterns, function(patternName, pattern) {
+                    for (var i = 0; i < pattern.templates.length; i++) {
+                        console.log("s: " + selectedTemplate + ", p: " + pattern.templates[i]);
+                        if (selectedTemplate == pattern.templates[i]) {
+                            proppattern = patternName;
+                            console.log("equals");
+                            break;
+                        }
+                    }
+                });
+            });
+            $.submitTemplate(proppattern, propertyIndex);
+        });
+
     });
     // var addScopeTag = '<div>' +
     //     '<button type="button" class="btn btn-primary btnAddScope" id="btnAddScope">Add scope</button>' +
@@ -183,8 +323,70 @@ $.showTemplate = function(selectId, template) {
     $.updateTags();
     $.addPropertyButtonListener();
     // $.addAddScopeListener();
-    $.addScopeTemplate();
+    // $.addScopeTemplate();
+    $.addUniqueScopeTemplate();
 
+}
+
+$.addUniqueScopeTemplate = function() {
+    var scope = $("#scopeSelect").val();
+    console.log(scope);
+
+    switch (scope) {
+        case "between":
+            $.generateBeforeTag();
+            $.generateAfterTag();
+            break;
+        case "after":
+            $.generateAfterTag();
+            break;
+        case "before":
+            $.generateBeforeTag();
+            break;
+        case "global":
+            break;
+    }
+    $.addScopeButtonListener();
+}
+
+$.generateAfterTag = function() {
+    var afterScopeTag = '<div class="scopeAfter">' +
+        '<div class="input-group scope-after" id="scpoeAfter' + indexAfter + '">' +
+        '<input type="text" class="form-control" id="tfAfterScope' + indexAfter + '_op1" value="">' +
+        '<select class="form-control col-md-1 col-sm-1" id="tfAfterScope' + indexAfter + '_op">' +
+        '<option selected value=""></option>' +
+        '<option value="==">=</option>' +
+        '<option value="&gt">&gt</option>' +
+        '<option value="&gt=">≧</option>' +
+        '<option value="&lt">&lt</option>' +
+        '<option value="&lt=">≦</option>' +
+        '<option value="!=">≠</option>' +
+        '<input type="text" class="form-control" id="tfAfterScope' + indexAfter + '_op2" value="">' +
+        '<span class="input-group-addon" id="btnAddAfter">の後で、</span>' +
+        '</div>' +
+        '</div>';
+    indexAfter++;
+    $(".templateDiv").prepend(afterScopeTag);
+}
+
+$.generateBeforeTag = function() {
+    var beforeScopeTag = '<div class="scopeBefore">' +
+        '<div class="input-group scope-before" id="scopeBefore' + indexBefore + '">' +
+        '<input type="text" class="form-control" id="tfBeforeScope' + indexBefore + '_op1" value="">' +
+        '<select class="form-control col-md-1 col-sm-1" id="tfBeforeScope' + indexBefore + '_op">' +
+        '<option selected value=""></option>' +
+        '<option value="==">=</option>' +
+        '<option value="&gt">&gt</option>' +
+        '<option value="&gt=">≧</option>' +
+        '<option value="&lt">&lt</option>' +
+        '<option value="&lt=">≦</option>' +
+        '<option value="!=">≠</option>' +
+        '<input type="text" class="form-control" id="tfBeforeScope' + indexBefore + '_op2" value="">' +
+        '<span class="input-group-addon" id="btnAddBefore">の前に</span>' +
+        '</div>' +
+        '</div>';
+    indexBefore++;
+    $(".templateDiv").prepend(beforeScopeTag);
 }
 
 $.addScopeTemplate = function() {
@@ -273,6 +475,7 @@ $.addAddScopeListener = function() {
 }
 
 $.addScopeButtonListener = function() {
+    var divId = "";
     $("#btnAddAfter").click(function() {
         divId = 'scopeAfter' + indexAfter;
         var destTag = '<div class="input-group scope-after" id="' + divId + '">' +
@@ -293,11 +496,13 @@ $.addScopeButtonListener = function() {
         '</div>';
         indexAfter++;
         indexAfterConn++;
-        $("div.scopeAfter").append(destTag);
+        // $("div.scopeAfter").append(destTag);
+        $(this).parent().after(destTag);
+        $("#" + divId).append($(this));
     });
 
     $("#btnAddBefore").click(function() {
-        divId = 'scopeAfter' + indexBefore;
+        divId = 'scopeBefore' + indexBefore;
         var destTag = '<div class="input-group scope-before" id="' + divId + '">' +
             '<select class="form-control col-md-1 col-sm-2 " id="scopeBeforeConn' + indexBeforeConn + '">' +
             '<option value="かつ" selected>かつ</option>' +
@@ -316,8 +521,12 @@ $.addScopeButtonListener = function() {
         '</div>';
         indexBefore++;
         indexBeforeConn++;
-        $("div.scopeBefore").append(destTag);
+        // $("div.scopeBefore").append(destTag);
+        $(this).parent().after(destTag);
+        $("#" + divId).append($(this));
     });
+
+
 }
 
 $.submitTemplate = function(patternName, numProperty) {
@@ -494,8 +703,6 @@ $.showDownloadButton = function() {
 
 $.addDownloadTemplateButtonListener = function() {
     $("#btnDownloadTemplate").click(function() {
-
-
         // $.fileDownload(graphTemppateFilePath);
         $.ajax({
             type: 'post',
@@ -605,7 +812,7 @@ $.updateTags = function() {
 }
 
 $.removeSelects = function() {
-    $("select").val("none");
+    $("#patternSelection select").val("none");
 }
 
 $.addBtnHeaderListener = function() {

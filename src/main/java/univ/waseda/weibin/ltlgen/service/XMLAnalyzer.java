@@ -73,7 +73,7 @@ public class XMLAnalyzer {
 				// existence: exist(P)
 				// bounded existence: P(..m)
 				// universality: univ(P)
-				Pattern pattern = Pattern.compile("(.*)\\((.*)\\)\\[*(.*?)\\]*");
+				Pattern pattern = Pattern.compile("(.*?)\\((.*)\\)\\[*(.*?)\\]*");
 				Matcher m = pattern.matcher(respName);
 				if (!m.matches()) {
 					// error incorrect resp name 

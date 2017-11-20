@@ -303,10 +303,8 @@ $.showTemplate = function(selectId, template) {
             $.each(data.property_patterns, function(key, patterns) {
                 $.each(patterns, function(patternName, pattern) {
                     for (var i = 0; i < pattern.templates.length; i++) {
-                        console.log("s: " + selectedTemplate + ", p: " + pattern.templates[i]);
                         if (selectedTemplate == pattern.templates[i]) {
                             proppattern = patternName;
-                            console.log("equals");
                             break;
                         }
                     }

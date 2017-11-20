@@ -73,7 +73,8 @@ public class XMLAnalyzer {
 				// existence: exist(P)
 				// bounded existence: P(..m)
 				// universality: univ(P)
-				Pattern pattern = Pattern.compile("(.*?)\\((.*)\\)\\[*(.*?)\\]*");
+//				Pattern pattern = Pattern.compile("(.*?)\\((.*)\\)\\[*(.*?)\\]*");
+				Pattern pattern = Pattern.compile("(.*?)\\((.*)\\)");
 				Matcher m = pattern.matcher(respName);
 				if (!m.matches()) {
 					// error incorrect resp name 
@@ -85,7 +86,7 @@ public class XMLAnalyzer {
 					// group(1): not, group(2): P
 					String g1 = m.group(1);
 					String g2 = m.group(2);
-					String g3 = m.group(3);
+//					String g3 = m.group(3);
 //					System.out.println("g3: " + g3);
 					
 					switch (g1) {
@@ -101,7 +102,7 @@ public class XMLAnalyzer {
 					case "bounded existence":
 					case "bounde":
 						// bounded existence
-						ltl = new BoundedExistence(g2, scope, g3).generateLTL();
+						ltl = new BoundedExistence(g2, scope, "2").generateLTL();
 						break;
 					case "univ":
 						// universality

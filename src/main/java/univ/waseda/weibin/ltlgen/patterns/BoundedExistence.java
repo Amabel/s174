@@ -19,7 +19,7 @@ public class BoundedExistence extends Pattern {
 		super(property, scope);
 		this.property = property;
 		this.scope = scope;
-		if (!g3.equals("")) {
+		if (g3 != null && !g3.equals("")) {
 			count = Integer.valueOf(g3);
 		}
 	}

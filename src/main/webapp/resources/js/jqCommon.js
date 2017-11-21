@@ -691,7 +691,7 @@ $.showDownloadButton = function() {
     $("#btnDownloadTemplate").remove();
     var buttonTag = '<div id="retDiv">' +
         // '<img title="Download XML file" src="resources/images/download-button.png" class = "btn form-control" id="btnDownloadTemplate" alt="Download XML file" />' +
-        '<span id="btnDownloadTemplate">download XML file</span>' +
+        '<span id="btnDownloadTemplate" hidden>download XML file</span>' +
         '</div>';
 
     // append to submit button

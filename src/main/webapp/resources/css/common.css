@@ -25,6 +25,14 @@ button#btnHeader:focus {
     outline: none;
 }
 
+#patternSelect {
+    margin-bottom: 20px;
+}
+
+#patternSelection {
+    margin-top: 10px;
+}
+
 .selectwidthauto
 {
      width:20px !important;
@@ -76,9 +84,16 @@ div.scopeAfter {
     margin-bottom: 20px;
 }
 
+div.scopeBefore {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
 div.propertyDiv {
     margin: 10px 0;
 }
+
+
 
 .addPropertyButton:hover {
     cursor: pointer;

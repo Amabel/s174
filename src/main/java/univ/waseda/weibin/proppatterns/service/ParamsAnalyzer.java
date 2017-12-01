@@ -6,17 +6,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import sun.text.normalizer.Replaceable;
 import univ.waseda.weibin.proppatterns.model.OrderedProperties;
 import univ.waseda.weibin.proppatterns.model.Property;
 

@@ -238,8 +238,8 @@ $.showTemplate = function(selectId, template) {
         if (templateArray[i] == "property") {
             tag += '<input type="text" class="form-control" id="templateProperty' + propertyIndex + '_0_op1">' +
                 '<select class="form-control col-md-1 col-sm-1" id="templateProperty' + propertyIndex + '_0_op">' +
-                '<option selected value=""></option>' +
-                '<option value="==">=</option>' +
+                '<option value=""></option>' +
+                '<option selected value="==">=</option>' +
                 '<option value="&gt">&gt</option>' +
                 '<option value="&gt=">≧</option>' +
                 '<option value="&lt">&lt</option>' +
@@ -352,8 +352,8 @@ $.generateAfterTag = function() {
         '<div class="input-group scope-after" id="scpoeAfter' + indexAfter + '">' +
         '<input type="text" class="form-control" id="tfAfterScope' + indexAfter + '_op1" value="">' +
         '<select class="form-control col-md-1 col-sm-1" id="tfAfterScope' + indexAfter + '_op">' +
-        '<option selected value=""></option>' +
-        '<option value="==">=</option>' +
+        '<option value=""></option>' +
+        '<option selected value="==">=</option>' +
         '<option value="&gt">&gt</option>' +
         '<option value="&gt=">≧</option>' +
         '<option value="&lt">&lt</option>' +
@@ -372,8 +372,8 @@ $.generateBeforeTag = function() {
         '<div class="input-group scope-before" id="scopeBefore' + indexBefore + '">' +
         '<input type="text" class="form-control" id="tfBeforeScope' + indexBefore + '_op1" value="">' +
         '<select class="form-control col-md-1 col-sm-1" id="tfBeforeScope' + indexBefore + '_op">' +
-        '<option selected value=""></option>' +
-        '<option value="==">=</option>' +
+        '<option value=""></option>' +
+        '<option selected value="==">=</option>' +
         '<option value="&gt">&gt</option>' +
         '<option value="&gt=">≧</option>' +
         '<option value="&lt">&lt</option>' +
@@ -393,8 +393,8 @@ $.addScopeTemplate = function() {
         '<span class="input-group-addon" id="btnAddAfter">After: </span>' +
         '<input type="text" class="form-control" id="tfAfterScope' + indexAfter + '_op1" value="">' +
         '<select class="form-control col-md-1 col-sm-1" id="tfAfterScope' + indexAfter + '_op">' +
-        '<option selected value=""></option>' +
-        '<option value="==">=</option>' +
+        '<option value=""></option>' +
+        '<option selected value="==">=</option>' +
         '<option value="&gt">&gt</option>' +
         '<option value="&gt=">≧</option>' +
         '<option value="&lt">&lt</option>' +
@@ -409,8 +409,8 @@ $.addScopeTemplate = function() {
         '<span class="input-group-addon" id="btnAddBefore">Before: </span>' +
         '<input type="text" class="form-control" id="tfBeforeScope' + indexBefore + '_op1" value="">' +
         '<select class="form-control col-md-1 col-sm-1" id="tfBeforeScope' + indexBefore + '_op">' +
-        '<option selected value=""></option>' +
-        '<option value="==">=</option>' +
+        '<option value=""></option>' +
+        '<option selected value="==">=</option>' +
         '<option value="&gt">&gt</option>' +
         '<option value="&gt=">≧</option>' +
         '<option value="&lt">&lt</option>' +
@@ -433,8 +433,8 @@ $.addAddScopeListener = function() {
             '<span class="input-group-addon" id="btnAddAfter">After: </span>' +
             '<input type="text" class="form-control" id="tfAfterScope' + indexAfter + '_op1" value="">' +
             '<select class="form-control col-md-1 col-sm-1" id="tfAfterScope' + indexAfter + '_op">' +
-            '<option selected value=""></option>' +
-            '<option value="==">=</option>' +
+            '<option value=""></option>' +
+            '<option selected value="==">=</option>' +
             '<option value="&gt">&gt</option>' +
             '<option value="&gt=">≧</option>' +
             '<option value="&lt">&lt</option>' +
@@ -454,8 +454,8 @@ $.addAddScopeListener = function() {
             '<span class="input-group-addon" id="btnAddBefore">Before: </span>' +
             '<input type="text" class="form-control" id="tfBeforeScope' + indexBefore + '_op1" value="">' +
             '<select class="form-control col-md-1 col-sm-1" id="tfBeforeScope' + indexBefore + '_op">' +
-            '<option selected value=""></option>' +
-            '<option value="==">=</option>' +
+            '<option value=""></option>' +
+            '<option selected value="==">=</option>' +
             '<option value="&gt">&gt</option>' +
             '<option value="&gt=">≧</option>' +
             '<option value="&lt">&lt</option>' +
@@ -483,8 +483,8 @@ $.addScopeButtonListener = function() {
             '</select>' +
             '<input type="text" class="form-control col-md-5 col-sm-4" id="tfAfterScope' + indexAfter + '_op1">' +
             '<select class="form-control col-md-1 col-sm-1" id="tfAfterScope' + indexAfter + '_op">' +
-            '<option selected value=""></option>' +
-            '<option value="==">=</option>' +
+            '<option value=""></option>' +
+            '<option selected value="==">=</option>' +
             '<option value="&gt">&gt</option>' +
             '<option value="&gt=">≧</option>' +
             '<option value="&lt">&lt</option>' +
@@ -508,8 +508,8 @@ $.addScopeButtonListener = function() {
             '</select>' +
             '<input type="text" class="form-control col-md-5 col-sm-4" id="tfBeforeScope' + indexBefore + '_op1">' +
             '<select class="form-control col-md-1 col-sm-1" id="tfBeforeScope' + indexBefore + '_op">' +
-            '<option selected value=""></option>' +
-            '<option value="==">=</option>' +
+            '<option value=""></option>' +
+            '<option selected value="==">=</option>' +
             '<option value="&gt">&gt</option>' +
             '<option value="&gt=">≧</option>' +
             '<option value="&lt">&lt</option>' +
@@ -743,8 +743,8 @@ $.addPropertyButtonListener = function() {
                 '</select>' +
                 '<input type="text" class="form-control col-md-5 col-sm-4" id="templateProperty0_' + indexProperty0 + '_op1">' +
                 '<select class="form-control col-md-1 col-sm-1" id="templateProperty0_' + indexProperty0 + '_op">' +
-                '<option selected value=""></option>' +
-                '<option value="==">=</option>' +
+                '<option value=""></option>' +
+                '<option selected value="==">=</option>' +
                 '<option value="&gt">&gt</option>' +
                 '<option value="&gt=">≧</option>' +
                 '<option value="&lt">&lt</option>' +
@@ -763,8 +763,8 @@ $.addPropertyButtonListener = function() {
                 '</select>' +
                 '<input type="text" class="form-control col-md-5 col-sm-4" id="templateProperty1_' + indexProperty1 + '_op1">' +
                 '<select class="form-control col-md-1 col-sm-1" id="templateProperty1_' + indexProperty1 + '_op">' +
-                '<option selected value=""></option>' +
-                '<option value="==">=</option>' +
+                '<option value=""></option>' +
+                '<option selected value="==">=</option>' +
                 '<option value="&gt">&gt</option>' +
                 '<option value="&gt=">≧</option>' +
                 '<option value="&lt">&lt</option>' +

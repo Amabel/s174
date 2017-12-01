@@ -3,9 +3,12 @@ package univ.waseda.weibin.proppatterns.service;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -13,6 +16,8 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import sun.text.normalizer.Replaceable;
+import univ.waseda.weibin.proppatterns.model.OrderedProperties;
 import univ.waseda.weibin.proppatterns.model.Property;
 
 public class ParamsAnalyzer {
@@ -25,6 +30,7 @@ public class ParamsAnalyzer {
 	private String replacedAfters;
 	private String replacedBefores;
 	Logger logger = LogManager.getLogger();
+	private OrderedProperties patternMappingProperties;
 	
 	public ParamsAnalyzer() {
 		createMap();
@@ -34,7 +40,8 @@ public class ParamsAnalyzer {
 		this.params = params;
 		this.afters = afters;
 		this.befores = befores;
-		createMap();
+//		createMap();
+		loadPropertiesFile();
 	}
 
 	public void analyze() {
@@ -48,12 +55,26 @@ public class ParamsAnalyzer {
 		for (int i=0; i<params.length; i++) {
 //			replacedParams[i] = new ArrayList<Property>();
 			for (Property property : this.params[i]) { 
-				Iterator iterator = patternMap.entrySet().iterator();
-				do {
-					Map.Entry entry = (Map.Entry) iterator.next();
-					String key = (String) entry.getKey();
-					String value = (String) entry.getValue();
-					String op1 = property.getOp1();
+//				Iterator iterator = patternMap.entrySet().iterator();
+//				do {
+//					Map.Entry entry = (Map.Entry) iterator.next();
+//					String key = (String) entry.getKey();
+//					String value = (String) entry.getValue();
+//					String op1 = property.getOp1();
+//					String op2 = property.getOp2();
+//					if (op1.contains(key)) {
+//						property.setOp1(op1.replace(key, value));
+//					}	
+//					if (op2.contains(key)) {
+//						property.setOp2(op2.replace(key, value));
+//					}
+//				} while(iterator.hasNext());
+				
+				Enumeration<?> en = patternMappingProperties.propertyNames();
+				while (en.hasMoreElements()) {
+					String key = (String) en.nextElement();
+		            String value = patternMappingProperties.getProperty(key);
+		            String op1 = property.getOp1();
 					String op2 = property.getOp2();
 					if (op1.contains(key)) {
 						property.setOp1(op1.replace(key, value));
@@ -61,7 +82,9 @@ public class ParamsAnalyzer {
 					if (op2.contains(key)) {
 						property.setOp2(op2.replace(key, value));
 					}
-				} while(iterator.hasNext());
+				}
+				
+				
 //				replacedParams[i].add(property);
 			}
 		}
@@ -129,20 +152,34 @@ public class ParamsAnalyzer {
 	private void replaceAfters() {
 		replacedAfters = "";
 		for (Property property : this.afters) {
-			Iterator iterator = patternMap.entrySet().iterator();
-			do {
-				Map.Entry entry = (Map.Entry) iterator.next();
-				String key = (String) entry.getKey();
-				String value = (String) entry.getValue();
-				String op1 = property.getOp1();
+//			Iterator iterator = patternMap.entrySet().iterator();
+//			do {
+//				Map.Entry entry = (Map.Entry) iterator.next();
+//				String key = (String) entry.getKey();
+//				String value = (String) entry.getValue();
+//				String op1 = property.getOp1();
+//				String op2 = property.getOp2();
+//				if (op1.contains(key)) {
+//					property.setOp1(op1.replace(key, value));
+//				}	
+//				if (op2.contains(key)) {
+//					property.setOp2(op2.replace(key, value));
+//				}					
+//			} while(iterator.hasNext());
+			
+			Enumeration<?> en = patternMappingProperties.propertyNames();
+			while (en.hasMoreElements()) {
+				String key = (String) en.nextElement();
+	            String value = patternMappingProperties.getProperty(key);
+	            String op1 = property.getOp1();
 				String op2 = property.getOp2();
 				if (op1.contains(key)) {
 					property.setOp1(op1.replace(key, value));
 				}	
 				if (op2.contains(key)) {
 					property.setOp2(op2.replace(key, value));
-				}					
-			} while(iterator.hasNext());
+				}
+			}
 		}
 		connectAfters();
 	}
@@ -150,44 +187,106 @@ public class ParamsAnalyzer {
 	private void replaceBefores() {
 		replacedBefores = "";
 		for (Property property : this.befores) {
-			Iterator iterator = patternMap.entrySet().iterator();
-			do {
-				Map.Entry entry = (Map.Entry) iterator.next();
-				String key = (String) entry.getKey();
-				String value = (String) entry.getValue();
-				String op1 = property.getOp1();
+//			Iterator iterator = patternMap.entrySet().iterator();
+//			do {
+//				Map.Entry entry = (Map.Entry) iterator.next();
+//				String key = (String) entry.getKey();
+//				String value = (String) entry.getValue();
+//				String op1 = property.getOp1();
+//				String op2 = property.getOp2();
+//				if (op1.contains(key)) {
+//					property.setOp1(op1.replace(key, value));
+//				}	
+//				if (op2.contains(key)) {
+//					property.setOp2(op2.replace(key, value));
+//				}					
+//			} while(iterator.hasNext());
+			
+			Enumeration<?> en = patternMappingProperties.propertyNames();
+			while (en.hasMoreElements()) {
+				String key = (String) en.nextElement();
+	            String value = patternMappingProperties.getProperty(key);
+	            String op1 = property.getOp1();
 				String op2 = property.getOp2();
 				if (op1.contains(key)) {
 					property.setOp1(op1.replace(key, value));
 				}	
 				if (op2.contains(key)) {
 					property.setOp2(op2.replace(key, value));
-				}					
-			} while(iterator.hasNext());
+				}
+			}
 		}
 		connectBefores();
 	}
 	
 	private void createMap() {
 		// construct map from .properties
-		Properties patternMappingProperties = new Properties();
+//		Properties patternMappingProperties = new Properties();
+		patternMappingProperties = new OrderedProperties();
 		String propFileName = "pattern-mapping.properties";
 		
 		String path = ParamsAnalyzer.class.getClassLoader().getResource(propFileName).getPath();
 		
+//		try {
+//			FileInputStream in = new FileInputStream(path);
+//			patternMappingProperties.load(in);
+//			in.close();
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		patternMap = new LinkedHashMap<String, String>((Map)patternMappingProperties);
+		
+		patternMap = new LinkedHashMap<String, String>();
+		try {
+			
+	        InputStream in = new FileInputStream(path);
+	        patternMappingProperties.load(in);
+	        Enumeration<?> en = patternMappingProperties.propertyNames();
+	        while (en.hasMoreElements()) {
+	            String key=(String) en.nextElement();
+	            String property=patternMappingProperties.getProperty(key);
+	            patternMap.put(key, property);
+	            System.out.println(key + "."+property);
+	        }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void loadPropertiesFile() {
+		patternMappingProperties = new OrderedProperties();
+		String propFileName = "pattern-mapping.properties";
+		String path = ParamsAnalyzer.class.getClassLoader().getResource(propFileName).getPath();
 		try {
 			FileInputStream in = new FileInputStream(path);
 			patternMappingProperties.load(in);
 			in.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		patternMap = new HashMap<String, String>((Map)patternMappingProperties);
-//		traverseMap();
+		
+		// traverse
+		Enumeration<?> en = patternMappingProperties.propertyNames();
+		while (en.hasMoreElements()) {
+			String key=(String) en.nextElement();
+            String property=patternMappingProperties.getProperty(key);
+//            map.put(key, property);
+		}
+	}
+	
+	private String replace(String src) {
+		Enumeration<?> en = patternMappingProperties.propertyNames();
+		while (en.hasMoreElements()) {
+			String key = (String) en.nextElement();
+            String property = patternMappingProperties.getProperty(key);
+		}
+		return "";
 	}
 
 	public List<String> getReplacedParams() {

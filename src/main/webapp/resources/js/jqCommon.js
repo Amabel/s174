@@ -576,7 +576,7 @@ $.submitTemplate = function(patternName, numProperty) {
 
     // find after
     var numScopeAfter = $("div.scope-after").length;
-    // console.log(numScopeAfter);
+    console.log(numScopeAfter);
     if (numScopeAfter == 0) {
         var after = new Object();
         after.op1 = "";
@@ -608,7 +608,7 @@ $.submitTemplate = function(patternName, numProperty) {
         afters.push(after);
     }
 
-    //fing before
+    //find before
     var numScopeBefore = $("div.scope-before").length;
     if (numScopeBefore == 0) {
         var before = new Object();
@@ -817,6 +817,7 @@ $.addBtnHeaderListener = function() {
     $("#btnHeader").click(function() {
         $.resetGlobalVars();
         $.removeSelects();
+        $("#scopeSelection select").val("none");
         $(".templateDiv").remove();
         $("#btnSubmitTemplate").remove();
         $("#btnDownloadTemplate").remove();

@@ -141,6 +141,19 @@ $.loadJsonAndAddDivs = function() {
             $.each(patterns, function(patternName, pattern) {
                 // var selectId = "selectPtn" + patternName;
                 for (var i = 0; i < pattern.templates.length; i++) {
+                    if (j == 0) {
+                        optionTags += '<option disabled>--- 応答パターン ---</option>\n';
+                    } else if (j == 1) {
+                        optionTags += '<option disabled>--- 普遍パターン ---</option>\n';
+                    } else if (j == 4) {
+                        optionTags += '<option disabled>--- 不在パターン ---</option>\n';
+                    } else if (j == 6) {
+                        optionTags += '<option disabled>--- 先行パターン ---</option>\n';
+                    } else if (j == 8) {
+                        optionTags += '<option disabled>--- 存在パターン ---</option>\n';
+                    } else if (j == 11) {
+                        optionTags += '<option disabled>--- 存在パターン（2回） ---</option>\n';
+                    }
                     optionTags += '<option value="' + j + '">' + pattern.templates[i] + '</option>\n';
                     j++;
                     templates.push(pattern.templates[i]);
@@ -150,7 +163,7 @@ $.loadJsonAndAddDivs = function() {
         $("#patternSelection").append(
             '<div class="form-group">' +
             '<label for="patternSelect">パターンのキーワード選択</label><br>' +
-            '<select class="form-control" name="pattern-select" id="patternSelect">' +
+            '<select class = "form-control" name="pattern-select" id="patternSelect">' +
             optionTags +
             '</select>' +
             '</div>'
@@ -187,6 +200,9 @@ $.generateSeparatePatternSelection = function() {
                 var selectId = "selectPtn" + patternName;
                 var optionTags = '<option value="none" hidden></option>\n';
                 for (var i = 0; i < pattern.templates.length; i++) {
+                    if (i == 0) {
+                        optionTags += '<option>000</option>\n';
+                    }
                     optionTags += '<option value="' + i + '">' + pattern.templates[i] + '</option>\n';
                 }
                 $("#patternSelection").append(
@@ -201,8 +217,7 @@ $.generateSeparatePatternSelection = function() {
                 $("#" + selectId).val([]);
                 $.addSelectListener(selectId, pattern.templates);
             });
-
-        })
+        });
     });
 }
 

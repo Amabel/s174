@@ -52,6 +52,7 @@ $(document).ready(function() {
     })
 
     $.addBtnHeaderListener();
+    $.addBtnResetListener();
     $.generateFormPatternSelection();
 });
 
@@ -832,7 +833,19 @@ $.addBtnHeaderListener = function() {
     $("#btnHeader").click(function() {
         $.resetGlobalVars();
         $.removeSelects();
-        $("#scopeSelection select").val("none");
+        $("#scopeSelection select").val("global");
+        $(".templateDiv").remove();
+        $("#btnSubmitTemplate").remove();
+        $("#btnDownloadTemplate").remove();
+        $("#retDiv").remove();
+    });
+}
+
+$.addBtnResetListener = function() {
+    $("#btnReset").click(function() {
+        $.resetGlobalVars();
+        $.removeSelects();
+        $("#scopeSelection select").val("global");
         $(".templateDiv").remove();
         $("#btnSubmitTemplate").remove();
         $("#btnDownloadTemplate").remove();

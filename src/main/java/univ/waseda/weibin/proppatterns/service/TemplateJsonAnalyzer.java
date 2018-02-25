@@ -12,8 +12,10 @@ public class TemplateJsonAnalyzer implements JsonAnalyzer {
 	private PatternTemplate patternTemplate;
 	private Gson gson;
 	private ParamsAnalyzer paramsAnalyzer;
+	private UMLetTemplateGraphGenerator umlTemplateGraphGenerator;
 	private TemplateGraphGenerator templateGraphGenerator;
 	private String downloadDirPath;
+	private String umletFileName;
 	private File graphTemplate;
 
 	public TemplateJsonAnalyzer(String downloadDirPath) {
@@ -33,15 +35,21 @@ public class TemplateJsonAnalyzer implements JsonAnalyzer {
 		// pattern, replacedParams
 		// generate pattern graph
 		templateGraphGenerator = new TemplateGraphGenerator(patternTemplate.getPattern(), paramsAnalyzer.getReplacedParams(), paramsAnalyzer.getReplacedAfters(), paramsAnalyzer.getReplacedBefores());
-		
+		umlTemplateGraphGenerator = new UMLetTemplateGraphGenerator(patternTemplate.getPattern(), paramsAnalyzer.getReplacedParams(), paramsAnalyzer.getReplacedAfters(), paramsAnalyzer.getReplacedBefores());
+		umletFileName = umlTemplateGraphGenerator.generateGraphFile(downloadDirPath).getName();
 //		String destPath = webInfPath + "/temps/generated-graphs/";
 		
 		graphTemplate = templateGraphGenerator.generateGraphFile(downloadDirPath);
+		System.out.println("download path: " + downloadDirPath);
 		
 	}
 	
 	public File getGraphTemplate() {
 		return this.graphTemplate;
+	}
+	
+	public String getUMLetFileName() {
+		return umletFileName;
 	}
 	
 	

@@ -69,7 +69,7 @@ public class TemplateServlet extends HttpServlet {
 		
 		logger.trace("get graph template filename.");
 		
-		retJson.add("graphTemplateFileName", graphTemplateFileName);
+		retJson.add("graphTemplateFileName", new JsonParser().parse(templateJsonAnalyzer.getUMLetFileName()));
 		
 		logger.trace("filename added to retJson.");
 		
